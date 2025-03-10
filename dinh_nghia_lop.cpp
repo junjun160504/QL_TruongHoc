@@ -7,71 +7,71 @@ using namespace std;
 // Lớp Giáo viên
 class GiaoVien {
 public:
-    std::string MGV;
-    std::string TenGV;
-    std::string MonDay;
-    std::string SDT;
+    string MGV;
+    string TenGV;
+    string MonDay;
+    string SDT;
 
-    GiaoVien(std::string mgv, std::string tengv, std::string monday, std::string sdt)
+    GiaoVien(string mgv, string tengv, string monday, string sdt)
         : MGV(mgv), TenGV(tengv), MonDay(monday), SDT(sdt) {}
 
     void inThongTin() const {
-        std::cout << "Mã giáo viên: " << MGV << ", Tên giáo viên: " << TenGV
-                  << ", Môn dạy: " << MonDay << ", SĐT: " << SDT << std::endl;
+        cout << "Mã giáo viên: " << MGV << ", Tên giáo viên: " << TenGV
+                  << ", Môn dạy: " << MonDay << ", SĐT: " << SDT << endl;
     }
 };
 
 // Lớp Học sinh
 class HocSinh {
 public:
-    std::string MaHS;
-    std::string TenHS;
-    std::string Lop;
-    std::string DiaChi;
-    std::string SDT;
-    std::string SDTPH;
+    string MaHS;
+    string TenHS;
+    string Lop;
+    string DiaChi;
+    string SDT;
+    string SDTPH;
 
-    HocSinh(std::string mahs, std::string tenhs, std::string lop, std::string diachi, std::string sdt, std::string sdtph)
+    HocSinh(string mahs, string tenhs, string lop, string diachi, string sdt, string sdtph)
         : MaHS(mahs), TenHS(tenhs), Lop(lop), DiaChi(diachi), SDT(sdt), SDTPH(sdtph) {}
 
     void inThongTin() const {
-        std::cout << "Mã học sinh: " << MaHS << ", Tên học sinh: " << TenHS
+        cout << "Mã học sinh: " << MaHS << ", Tên học sinh: " << TenHS
                   << ", Lớp: " << Lop << ", Địa chỉ: " << DiaChi
-                  << ", SĐT: " << SDT << ", SĐT PH: " << SDTPH << std::endl;
+                  << ", SĐT: " << SDT << ", SĐT PH: " << SDTPH << endl;
     }
 };
 
 // Lớp Bảng điểm
 class BangDiem {
 public:
-    std::string MaHS;
-    std::string MaMH;
+    string MaHS;
+    string MaMH;
     float DM;
     float DCC;
     float DKT;
     float DT;
 
-    BangDiem(std::string mahs, std::string mamh, float dm, float dcc, float dkt, float dt)
+    BangDiem(string mahs, string mamh, float dm, float dcc, float dkt, float dt)
         : MaHS(mahs), MaMH(mamh), DM(dm), DCC(dcc), DKT(dkt), DT(dt) {}
 
     float diemTrungBinh() const {
-        return (DM + DCC + DKT + DT) / 4;
+        return (DM + DCC + DKT + DT) / 4; //cái này có thêm cái làm tròn được ko?
     }
 
     void inThongTin() const {
-        std::cout << "Mã học sinh: " << MaHS << ", Mã môn học: " << MaMH
+        cout << "Mã học sinh: " << MaHS << ", Mã môn học: " << MaMH
                   << ", Điểm miệng: " << DM << ", Điểm 15 phút: " << DCC
                   << ", Điểm 45 phút: " << DKT << ", Điểm thi: " << DT
-                  << ", Điểm trung bình: " << diemTrungBinh() << std::endl;
+                  << ", Điểm trung bình: " << diemTrungBinh() << endl;
     }
 };
 
 // Lớp QuanLyTruongHoc
 class QuanLyTruongHoc {
 private:
-    std::vector<GiaoVien> danhSachGV;
-    std::vector<HocSinh> danhSachHS;
-    std::vector<BangDiem> danhSachBD;
+    vector<GiaoVien> danhSachGV;
+    vector<HocSinh> danhSachHS;
+    vector<BangDiem> danhSachBD;
 
 public:
     // Chức năng nhập dữ liệu giáo viên
@@ -104,7 +104,7 @@ public:
     }
 
     // In danh sách điểm theo học sinh
-    void inDanhSachDiemTheoHS(const std::string& mahs) const {
+    void inDanhSachDiemTheoHS(const string& mahs) const {
         for (const auto& bd : danhSachBD) {
             if (bd.MaHS == mahs) {
                 bd.inThongTin();
@@ -113,7 +113,7 @@ public:
     }
 
     // In danh sách điểm theo môn
-    void inDanhSachDiemTheoMon(const std::string& mamh) const {
+    void inDanhSachDiemTheoMon(const string& mamh) const {
         for (const auto& bd : danhSachBD) {
             if (bd.MaMH == mamh) {
                 bd.inThongTin();
@@ -122,10 +122,10 @@ public:
     }
 
     // Báo cáo kết quả học tập theo lớp
-    void baoCaoKQTheoLop(const std::string& lop) const {
+    void baoCaoKQTheoLop(const string& lop) const {
         for (const auto& hs : danhSachHS) {
             if (hs.Lop == lop) {
-                std::cout << "Học sinh: " << hs.TenHS << std::endl;
+                cout << "Học sinh: " << hs.TenHS << endl;
                 inDanhSachDiemTheoHS(hs.MaHS);
             }
         }
@@ -134,7 +134,7 @@ public:
     // In danh sách điểm trung bình của học sinh
     void inDanhSachDiemTB() const {
         for (const auto& bd : danhSachBD) {
-            std::cout << "Mã học sinh: " << bd.MaHS << ", Điểm trung bình: " << bd.diemTrungBinh() << std::endl;
+            cout << "Mã học sinh: " << bd.MaHS << ", Điểm trung bình: " << bd.diemTrungBinh() << endl;
         }
     }
 
@@ -151,7 +151,7 @@ public:
     }
 
     // Xếp loại học lực
-    std::string xepLoaiHocLuc(const std::string& mahs) const {
+    string xepLoaiHocLuc(const string& mahs) const {
         float diemTB = 0;
         int count = 0;
         for (const auto& bd : danhSachBD) {
@@ -170,7 +170,7 @@ public:
     }
 
     // Tìm kiếm giáo viên theo tên
-    void timKiemGV(const std::string& tenGV) const {
+    void timKiemGV(const string& tenGV) const {
         for (const auto& gv : danhSachGV) {
             if (gv.TenGV == tenGV) {
                 gv.inThongTin();
@@ -179,7 +179,7 @@ public:
     }
 
     // Tìm kiếm học sinh theo tên
-    void timKiemHS(const std::string& tenHS) const {
+    void timKiemHS(const string& tenHS) const {
         for (const auto& hs : danhSachHS) {
             if (hs.TenHS == tenHS) {
                 hs.inThongTin();
