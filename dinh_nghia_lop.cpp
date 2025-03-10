@@ -3,6 +3,7 @@
 #include <string>
 #include <algorithm>
 
+using namespace std;
 // Lớp Giáo viên
 class GiaoVien {
 public:
