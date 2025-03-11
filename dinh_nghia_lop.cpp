@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <string>
+#include <cmath>
 #include <algorithm>
 
 using namespace std;
@@ -55,7 +56,7 @@ public:
         : MaHS(mahs), MaMH(mamh), DM(dm), DCC(dcc), DKT(dkt), DT(dt) {}
 
     float diemTrungBinh() const {
-        return (DM + DCC + DKT + DT) / 4; //cái này có thêm cái làm tròn được ko?
+        return round((DM + DCC + DKT*2 + DT*3) / 7)* 100 /100; //cái này làm tròn đến số thập phân thứ 2
     }
 
     void inThongTin() const {
@@ -187,3 +188,9 @@ public:
         }
     }
 };
+
+int main()
+{
+   
+    return 0;
+}
