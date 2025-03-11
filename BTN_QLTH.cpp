@@ -5,6 +5,7 @@
 #include <cmath> //thư viện để làm tròn
 #include <iomanip> //thư viện để lấp đầy khoảng trắng
 #include <algorithm> //thư viện để sắp xếp
+#include <sstream> //thư viện để sử dụng stringstream
 
 using namespace std;
 
@@ -79,6 +80,105 @@ class BangDiem{
         }
     };
 
+// Đọc dữ liệu từ file Giáo viên
+vector<GiaoVien> docGiaoVienTuFile(const string& tenFile) 
+    {
+        vector<GiaoVien> dsgv;
+        ifstream filein(tenFile); 
+        if (!filein) {
+            cout << "Khong the mo file " << tenFile << "!" << endl;
+            return dsgv;
+        }
+        string line;
+        while (getline(filein, line)) { // đọc từng dòng trong file và lưu vào biến line
+            stringstream ss(line); // tạo ra một string stream từ dòng vừa đọc, Chuyển dòng đọc được thành luồng chuỗi
+            GiaoVien gv;
+            getline(ss, gv.maGV, ',');
+            getline(ss, gv.tenGV, ',');
+            getline(ss, gv.monDay, ',');
+            getline(ss, gv.sdt, ',');
+            dsgv.push_back(gv);
+        }
+        filein.close();
+        return dsgv;
+    }
+// Đọc dữ liệu từ file Học sinh
+vector<HocSinh> docHocSinhTuFile(const string& tenFile) 
+    {
+        vector<HocSinh> dshs;
+        ifstream filein(tenFile); 
+        if (!filein) {
+            cout << "Khong the mo file " << tenFile << "!" << endl;
+            return dshs;
+        }
+        string line;
+        while (getline(filein, line)) { // đọc từng dòng trong file và lưu vào biến line
+            stringstream ss(line); // tạo ra một string stream từ dòng vừa đọc, Chuyển dòng đọc được thành luồng chuỗi
+            HocSinh hs;
+            getline(ss, hs.maHS, ',');
+            getline(ss, hs.tenHS, ',');
+            getline(ss, hs.lop, ',');
+            getline(ss, hs.diaChi, ',');
+            getline(ss, hs.sdt, ',');
+            getline(ss, hs.sdtPH, ',');
+            dshs.push_back(hs);
+        }
+        filein.close();
+        return dshs;
+    }
+
+// Đọc dữ liệu từ file Bảng điểm
+vector<BangDiem> docBangDiemTuFile(const string& tenFile) 
+    {
+        vector<BangDiem> dsbd;
+        ifstream filein(tenFile); 
+        if (!filein) {
+            cout << "Khong the mo file " << tenFile << "!" << endl;
+            return dsbd;
+        }
+        string line;
+        while (getline(filein, line)) { // đọc từng dòng trong file và lưu vào biến line
+            stringstream ss(line); // tạo ra một string stream từ dòng vừa đọc, Chuyển dòng đọc được thành luồng chuỗi
+            BangDiem bd;
+            getline(ss, bd.maHS, ',');
+            getline(ss, bd.maMH, ',');
+            ss >> bd.DM; ss.ignore();
+            ss >> bd.DCC; ss.ignore();
+            ss >> bd.DKT; ss.ignore();
+            ss >> bd.DT;
+            dsbd.push_back(bd);
+        }
+        filein.close();
+        return dsbd;
+    }
+
+//ghi file Giáo Viên
+void ghiFileGV(const string& tenFile, const vector<GiaoVien>& dsgv) {
+    ofstream fileout(tenFile);
+    for (const auto& gv : dsgv) { // duyệt qua từng phần tử trong vector
+        fileout << gv.maGV << "," << gv.tenGV << "," << gv.monDay << "," << gv.sdt << endl;
+    }
+    fileout.close();
+}
+
+//ghi file Học Sinh
+void ghiFileHS(const string& tenFile, const vector<HocSinh>& dshs) {
+    ofstream fileout(tenFile);
+    for (const auto& hs : dshs) { // duyệt qua từng phần tử trong vector
+        fileout << hs.maHS << "," << hs.tenHS << "," << hs.lop << ","
+                << hs.diaChi << "," << hs.sdt << "," << hs.sdtPH << endl;
+    }
+    fileout.close();
+}
+
+//ghi file Bảng Điểm
+void ghiFileBD(const string& tenFile, const vector<BangDiem>& dsbd) {
+    ofstream fileout(tenFile);
+    for (const auto& bd : dsbd) { // duyệt qua từng phần tử trong vector
+        fileout << bd.maHS << "," << bd.maMH << "," << bd.DM << "," << bd.DCC << "," << bd.DKT << "," << bd.DT << endl;
+    }
+    fileout.close();
+}
 
 //menu
 void menu() {
@@ -100,6 +200,13 @@ void menu() {
     cout << "Chon chuc nang: ";
 }
 
+void pauseAndClear() {
+    cout << "\nNhan Enter de tiep tuc...";
+    system("pause");
+    cin.ignore();
+    cin.get();
+    system("cls"); // Xóa màn hình
+}
 
 int main()
 {
@@ -119,14 +226,22 @@ int main()
                 int soLuong;
                 cout << "Nhap so luong hoc sinh: ";
                 cin >> soLuong;
+                
                 for (int i = 0; i < soLuong; i++) {
                     HocSinh hs;
                     cout << "Nhap thong tin sinh vien thu " << i + 1 << ":" << endl;
                     hs.nhapHS();
                     dshs.push_back(hs);
                 }
-                cout << "Da them thanh cong!" << endl;
-                system("pause");
+                
+                char save;
+                cout << "Ban co muon luu vao file? (Y/N): ";
+                cin >> save;
+                if (save == 'Y' || save == 'y') {
+                    ghiFileHS("HocSinh.txt", dshs);
+                    cout << "Da them thanh cong!" << endl;
+                }
+                pauseAndClear();
                 break;   
             };
             case 2: {
@@ -139,12 +254,24 @@ int main()
                     gv.nhapGV();
                     dsgv.push_back(gv);
                 }
-                cout << "Da them thanh cong!" << endl;
-                system("pause");
+                
+                char save;
+                cout << "Ban co muon luu vao file? (Y/N): ";
+                cin >> save;
+                if (save == 'Y' || save == 'y') {
+                    ghiFileGV("GiaoVien.txt", dsgv);
+                    cout << "Da them thanh cong!" << endl;
+                }
+                pauseAndClear();
                 break;
             };
             
             case 3:{ //nhập bảng điểm
+                if (dshs.empty()) {
+                    cout << "Danh sach hoc sinh dang trong! \n";
+                    break;
+                }
+                
                 int monHoc;
                 cout << "Nhap mon hoc can nhap diem: ";
                 cin >> monHoc;
@@ -159,8 +286,15 @@ int main()
                     cout << "Nhap diem thi: "; cin >> bd.DT;
                     dsbd.push_back(bd); 
                 }
-                cout << "Da them thanh cong!" << endl;
-                system("pause");
+
+                char save;
+                cout << "Ban co muon luu vao file? (Y/N): ";
+                cin >> save;
+                if (save == 'Y' || save == 'y') {
+                    ghiFileBD("BangDiem.txt", dsbd);
+                    cout << "Da them thanh cong!" << endl;
+                }
+                pauseAndClear();
                 break;
             };
 
@@ -188,8 +322,47 @@ int main()
                 
             };
 
-            case 10:{
-                
+            case 10:{ // Hiển thị học sinh có điểm trung bình cao nhất
+                vector<HocSinh> dshs = docHocSinhTuFile("HocSinh.txt");
+                vector<BangDiem> dsbd = docBangDiemTuFile("BangDiem.txt");
+
+                if (dshs.empty() || dsbd.empty()) {
+                    cout << "Khong co du lieu de hien thi!\n";
+                    break;
+                }
+            
+                float maxDiemTB = 0;
+                vector<BangDiem> hsMaxDiemTB;
+            
+                // Tìm điểm trung bình cao nhất
+                for (size_t i = 0; i < dsbd.size(); i++) {
+                    float diemTB = dsbd[i].diemTB();
+                    if (diemTB > maxDiemTB) {
+                        maxDiemTB = diemTB;
+                        hsMaxDiemTB.clear();
+                        hsMaxDiemTB.push_back(dsbd[i]);
+                    } else if (diemTB == maxDiemTB) {
+                        hsMaxDiemTB.push_back(dsbd[i]);
+                    }
+                }
+            
+                // Hiển thị danh sách học sinh có điểm trung bình cao nhất
+                cout << "\nHoc sinh co diem trung binh cao nhat (" << maxDiemTB << "):\n";
+                cout << left << setw(10) << "Ma HS" << setw(20) << "Ten HS" << setw(10) << "Lop" << setw(8) << "TB" << endl;
+
+                for (const auto& bd : hsMaxDiemTB) {
+                    // Tìm tên học sinh theo mã HS
+                    auto it = find_if(dshs.begin(), dshs.end(), [&](const HocSinh& hs) {
+                        return hs.maHS == bd.maHS;
+                    });
+
+                    string tenHS = (it != dshs.end()) ? it->tenHS : "Unknown";
+                    string lopHS = (it != dshs.end()) ? it->lop : "Unknown";
+
+                    cout << left << setw(10) << bd.maHS << setw(20) << tenHS << setw(10) << lopHS << setw(8) << bd.diemTB() << endl;
+                }
+                pauseAndClear();
+                break;
             };
 
             case 11:{
@@ -201,8 +374,8 @@ int main()
             };
             
             default:{
-                system("cls"); // Xóa màn hình nếu lựa chọn không hợp lệ
                 cout << "Lua chon khong hop le. Vui long chon lai.\n";
+                pauseAndClear();
                 cout << "Chon chuc nang: ";
                 cin.ignore();
                 cin.get();
