@@ -229,12 +229,22 @@ int main()
                 cout << "Nhap so luong hoc sinh: ";
                 cin >> soLuong;
                 
+                
                 for (int i = 0; i < soLuong; i++) {
                     HocSinh hs;
                     cout << "Nhap thong tin sinh vien thu " << i + 1 << ":" << endl;
                     hs.nhapHS();
                     dshs.push_back(hs);
                 }
+                
+                char save;
+                cout << "Ban co muon luu vao file? (Y/N): ";
+                cin >> save;
+                if (save == 'Y' || save == 'y') {
+                    ghiFileHS("HocSinh.txt", dshs);
+                    cout << "Da them thanh cong!" << endl;
+                }
+                pauseAndClear();
                 
                 char save;
                 cout << "Ban co muon luu vao file? (Y/N): ";
@@ -265,10 +275,24 @@ int main()
                     cout << "Da them thanh cong!" << endl;
                 }
                 pauseAndClear();
+                
+                char save;
+                cout << "Ban co muon luu vao file? (Y/N): ";
+                cin >> save;
+                if (save == 'Y' || save == 'y') {
+                    ghiFileGV("GiaoVien.txt", dsgv);
+                    cout << "Da them thanh cong!" << endl;
+                }
+                pauseAndClear();
                 break;
             };
             
             case 3:{ //nhập bảng điểm
+                if (dshs.empty()) {
+                    cout << "Danh sach hoc sinh dang trong! \n";
+                    break;
+                }
+                
                 if (dshs.empty()) {
                     cout << "Danh sach hoc sinh dang trong! \n";
                     break;
@@ -288,6 +312,15 @@ int main()
                     cout << "Nhap diem thi: "; cin >> bd.DT;
                     dsbd.push_back(bd); 
                 }
+
+                char save;
+                cout << "Ban co muon luu vao file? (Y/N): ";
+                cin >> save;
+                if (save == 'Y' || save == 'y') {
+                    ghiFileBD("BangDiem.txt", dsbd);
+                    cout << "Da them thanh cong!" << endl;
+                }
+                pauseAndClear();
 
                 char save;
                 cout << "Ban co muon luu vao file? (Y/N): ";
@@ -607,6 +640,7 @@ int main()
             
             default:{
                 cout << "Lua chon khong hop le. Vui long chon lai.\n";
+                pauseAndClear();
                 pauseAndClear();
                 cout << "Chon chuc nang: ";
                 cin.ignore();
