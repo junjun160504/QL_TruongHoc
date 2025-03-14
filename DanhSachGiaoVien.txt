@@ -1,0 +1,9 @@
+
+=========== DANH SACH GIAO VIEN ===========
+Ma giao vien   Ten giao vien            Mon day             
+GV0091          Hoang Van Thu            Van                
+GV0115          Ngo Thi Tuyet            Anh                
+GV0074          Nguyen Thi Cam Tho       Sinh               
+GV0057          Nguyen Thi Mai Phuong    Hoa                
+GV0018          Nguyen Van Hung          Toan               
+GV0032          Pham Thi Minh            Ly                 

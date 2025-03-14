@@ -1,0 +1,19 @@
+
+=================== DANH SACH HOC SINH ===================
+Ma hoc sinh    Ten hoc sinh             Lop       Dia chi             SDT            SDT phu huynh       
+HS0172         Bui Kien                 12A1      "164 Duong Hong Mai  Quan Hai Ba Trung"0905678901          
+HS0124         Dang Giang Huong         12A1      "144 Pho Lac Trung   Quan Hai Ba Trung"0921345678          
+HS0093         Dang Le Duy              12A1      "13 Pho Lo Duc       Quan Hai Ba Trung"0954321876          
+HS0078         Dao Huu Duong            12A1      "22 Ngo 31 Duong Yen Bai Quan Hai Ba Trung"0935432198          
+HS0025         Ha Bao Anh               12A1      "146 Duong Lac Trung Quan Hai Ba Trung"0901234789          
+HS0236         Le Thi Men               12A1      "30 Pho Tran Binh Trong Quan Hai Ba Trung"0939876123          
+HS0213         Mai My Linh              12A1      "213 Duong Bach Mai  Quan Hai Ba Trung"0914321098          
+HS0012         Nguyen Bao An            12A1      "15 Pho Thien Quang  Quan Hai Ba Trung"0978654321          
+HS0105         Nguyen Huong Giang       12A1      "431 Duong Bach Mai  Quan Hai Ba Trung"0967893456          
+HS0281         Nguyen Nhu Quynh         12A1      "1 Pho Quynh Mai     Quan Hai Ba Trung"0965432109          
+HS0259         Nguyen Thao Nhi          12A1      "58 Duong Tran Nhan Tong Quan Hai Ba Trung"0943218765          
+HS0047         Pham Minh Chau           12A1      "191 Duong Ba Trieu  Quan Hai Ba Trung"0983456712          
+HS0039         Phan Van Binh            12A1      "325 Duong Tran Dai Nghia Quan Hai Ba Trung"0948761234          
+HS0061         Phan Van Duc             12A1      "42 Pho Bui Ngoc Duong Quan Hai Ba Trung"0916782345          
+HS0150         Tran Quoc Huy            12A1      "5 Pho Dong Mac      Quan Hai Ba Trung"0998765430          
+HS0198         Tran Thuy Linh           12A1      "100 Pho Tue Tinh    Quan Hai Ba Trung"0981234567          
