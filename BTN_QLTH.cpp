@@ -246,14 +246,14 @@ int main()
                 }
                 pauseAndClear();
                 
-                char save;
-                cout << "Ban co muon luu vao file? (Y/N): ";
-                cin >> save;
-                if (save == 'Y' || save == 'y') {
-                    ghiFileHS("HocSinh.txt", dshs);
-                    cout << "Da them thanh cong!" << endl;
-                }
-                pauseAndClear();
+                // char save;
+                // cout << "Ban co muon luu vao file? (Y/N): ";
+                // cin >> save;
+                // if (save == 'Y' || save == 'y') {
+                //     ghiFileHS("HocSinh.txt", dshs);
+                //     cout << "Da them thanh cong!" << endl;
+                // }
+                // pauseAndClear();
                 break;   
             };
             case 2: {
@@ -266,15 +266,6 @@ int main()
                     gv.nhapGV();
                     dsgv.push_back(gv);
                 }
-                
-                char save;
-                cout << "Ban co muon luu vao file? (Y/N): ";
-                cin >> save;
-                if (save == 'Y' || save == 'y') {
-                    ghiFileGV("GiaoVien.txt", dsgv);
-                    cout << "Da them thanh cong!" << endl;
-                }
-                pauseAndClear();
                 
                 char save;
                 cout << "Ban co muon luu vao file? (Y/N): ";
@@ -321,30 +312,148 @@ int main()
                     cout << "Da them thanh cong!" << endl;
                 }
                 pauseAndClear();
-
-                char save;
-                cout << "Ban co muon luu vao file? (Y/N): ";
-                cin >> save;
-                if (save == 'Y' || save == 'y') {
-                    ghiFileBD("BangDiem.txt", dsbd);
-                    cout << "Da them thanh cong!" << endl;
-                }
-                pauseAndClear();
                 break;
             };
 
-            case 4:{//in danh sách giáo viên
+            case 4: {
+                vector<GiaoVien> dsgv = docGiaoVienTuFile("GiaoVien.txt");
+                if (dsgv.empty()) {
+                    cout << "Khong co du lieu giao vien!\n";
+                    break;
+                }
                 
-            };
-
-            case 5:{
+                // Sắp xếp theo tên (ưu tiên Firstname)
+                sort(dsgv.begin(), dsgv.end(), [](const GiaoVien &a, const GiaoVien &b) {
+                    return a.tenGV < b.tenGV;
+                });
                 
-            };
-
-            case 6:{
+                cout << "\n=========== DANH SACH GIAO VIEN ===========\n";
+                cout << left << setw(15) << "Ma giao vien" << setw(25) << "Ten giao vien" << setw(20) << "Mon day" << endl;
+                for (const auto& gv : dsgv) {
+                    cout << left << setw(15) << gv.maGV << setw(25) << gv.tenGV << setw(20) << gv.monDay << endl;
+                }
                 
-            };
-
+                char save;
+                cout << "Ban co muon luu danh sach vao file? (Y/N): ";
+                cin >> save;
+                if (tolower(save) == 'y') {
+                    ofstream fileout("DanhSachGiaoVien.txt");
+                    fileout << "\n=========== DANH SACH GIAO VIEN ===========\n";
+                    fileout << left << setw(15) << "Ma giao vien" << setw(25) << "Ten giao vien" << setw(20) << "Mon day" << endl;
+                    for (const auto& gv : dsgv) {
+                        fileout << left << setw(15) << gv.maGV << setw(25) << gv.tenGV << setw(20) << gv.monDay << endl;
+                    }
+                    fileout.close();
+                    cout << "Danh sach da duoc luu vao file DanhSachGiaoVien.txt\n";
+                }
+                pauseAndClear();
+                break;
+            }
+            
+            case 5: {
+                vector<HocSinh> dshs = docHocSinhTuFile("HocSinh.txt");
+                if (dshs.empty()) {
+                    cout << "Khong co du lieu hoc sinh!\n";
+                    break;
+                }
+                
+                // Sắp xếp theo tên 
+                sort(dshs.begin(), dshs.end(), [](const HocSinh &a, const HocSinh &b) {
+                    return a.tenHS < b.tenHS;
+                });
+                
+                cout << "\n=================== DANH SACH HOC SINH ===================\n";
+                cout << left << setw(15) << "Ma hoc sinh" << setw(25) << "Ten hoc sinh" << setw(10) << "Lop" << setw(20) << "Dia chi" << setw(15) << "SDT" << setw(20) << "SDT phu huynh" << endl;
+                for (const auto& hs : dshs) {
+                    cout << left << setw(15) << hs.maHS << setw(25) << hs.tenHS << setw(10) << hs.lop << setw(20) << hs.diaChi << setw(15) << hs.sdt << setw(20) << hs.sdtPH << endl;
+                }
+                
+                char save;
+                cout << "Ban co muon luu danh sach vao file? (Y/N): ";
+                cin >> save;
+                if (tolower(save) == 'y') {
+                    ofstream fileout("DanhSachHocSinh.txt");
+                    fileout << "\n=================== DANH SACH HOC SINH ===================\n";
+                    fileout << left << setw(15) << "Ma hoc sinh" << setw(25) << "Ten hoc sinh" << setw(10) << "Lop" << setw(20) << "Dia chi" << setw(15) << "SDT" << setw(20) << "SDT phu huynh" << endl;
+                    for (const auto& hs : dshs) {
+                        fileout << left << setw(15) << hs.maHS << setw(25) << hs.tenHS << setw(10) << hs.lop << setw(20) << hs.diaChi << setw(15) << hs.sdt << setw(20) << hs.sdtPH << endl;
+                    }
+                    fileout.close();
+                    cout << "Danh sach da duoc luu vao file DanhSachHocSinh.txt\n";
+                }
+                pauseAndClear();
+                break;
+            }
+            
+            case 6: {
+                vector<HocSinh> dshs = docHocSinhTuFile("HocSinh.txt");
+                vector<BangDiem> dsbd = docBangDiemTuFile("BangDiem.txt");
+                
+                if (dshs.empty() || dsbd.empty()) {
+                    cout << "Khong co du lieu!\n";
+                    break;
+                }
+                
+                string maHS;
+                cout << "Nhap ma hoc sinh: ";
+                cin >> maHS;
+                
+                // auto it = find_if(dshs.begin(), dshs.end(), [&](const HocSinh &hs) {
+                //     return hs.maHS == maHS;
+                // });
+                
+                // if (it == dshs.end()) {
+                //     cout << "Khong tim thay hoc sinh voi ma " << maHS << "!\n";
+                //     break;
+                // }
+                HocSinh hs;
+                bool found = false;
+                for (const auto& h : dshs) {
+                    if (h.maHS == maHS) {
+                        hs = h;
+                        found = true;
+                        break;
+                    }
+                }
+                
+                if (!found) {
+                    cout << "Khong tim thay hoc sinh voi ma " << maHS << "!\n";
+                    break;
+                }
+                
+                cout << "\n=========== BANG DIEM CUA HOC SINH " << hs.tenHS << " ===========\n";
+                cout << left << setw(15) << "Ma Hoc Sinh" << setw(20) << "Ten Hoc Sinh" << endl;
+                cout << left << setw(15) << hs.maHS << setw(20) << hs.tenHS << endl;
+                cout<< endl;
+                cout << left << setw(10) << "Mon Hoc" << setw(15) << "Diem mieng" << setw(15) << "Diem TX" << setw(15) << "Diem Kiem Tra" << setw(15) << "Diem Thi" << setw(15) << "Diem TB" << endl;
+                for (const auto& bd : dsbd) {
+                    if (bd.maHS == maHS) {
+                        cout << left << setw(10) << bd.maMH << setw(15) << bd.DM << setw(15) << bd.DCC << setw(15) << bd.DKT << setw(15) << bd.DT << setw(15) << bd.diemTB() << endl;
+                    }
+                }
+                
+                char save;
+                cout << "Ban co muon luu bang diem vao file? (Y/N): ";
+                cin >> save;
+                if (tolower(save) == 'y') {
+                    ofstream fileout("BangDiem_" + maHS + ".txt");
+                    fileout << "\n=========== BANG DIEM CUA HOC SINH " << hs.tenHS << " ===========\n";
+                    fileout << left << setw(15) << "Ma Hoc Sinh" << setw(20) << "Ten Hoc Sinh" << endl;
+                    fileout << left << setw(15) << hs.maHS << setw(20) << hs.tenHS << endl;
+                    fileout << endl;
+                    fileout << left << setw(10) << "Mon Hoc" << setw(15) << "Diem mieng" << setw(15) << "Diem TX" << setw(15) << "Diem Kiem Tra" << setw(15) << "Diem Thi" << setw(15) << "Diem TB" << endl;
+                    for (const auto& bd : dsbd) {
+                        if (bd.maHS == maHS) {
+                            fileout << left << setw(10) << bd.maMH << setw(15) << bd.DM << setw(15) << bd.DCC << setw(15) << bd.DKT << setw(15) << bd.DT << setw(15) << bd.diemTB() << endl;
+                        }
+                    }
+                    fileout.close();
+                    cout << "Bang diem da duoc luu vao file BangDiem_" << maHS << ".txt\n";
+                }
+                pauseAndClear();
+                break;
+            }
+            
             case 7:{
                 
             };
