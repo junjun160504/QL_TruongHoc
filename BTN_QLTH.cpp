@@ -103,6 +103,7 @@ vector<GiaoVien> docGiaoVienTuFile(const string& tenFile)
         filein.close();
         return dsgv;
     }
+
 // Đọc dữ liệu từ file Học sinh
 vector<HocSinh> docHocSinhTuFile(const string& tenFile) 
     {
@@ -209,7 +210,6 @@ void pauseAndClear() {
  //   system("cls"); // Xóa màn hình
 }
 
-
 int main()
 {
     vector<HocSinh> dshs;
@@ -223,7 +223,7 @@ int main()
         cin >> chon;
         switch (chon)
         {
-            case 1:
+            case 1: //Nhập học sinh
             {
                 int soLuong;
                 cout << "Nhap so luong hoc sinh: ";
@@ -237,26 +237,20 @@ int main()
                     dshs.push_back(hs);
                 }
                 
-                char save;
+                char luu;
                 cout << "Ban co muon luu vao file? (Y/N): ";
-                cin >> save;
-                if (save == 'Y' || save == 'y') {
+                cin >> luu;
+                if (luu == 'Y' || luu == 'y') {
                     ghiFileHS("HocSinh.txt", dshs);
                     cout << "Da them thanh cong!" << endl;
                 }
                 pauseAndClear();
                 
-                char save;
-                cout << "Ban co muon luu vao file? (Y/N): ";
-                cin >> save;
-                if (save == 'Y' || save == 'y') {
-                    ghiFileHS("HocSinh.txt", dshs);
-                    cout << "Da them thanh cong!" << endl;
-                }
-                pauseAndClear();
                 break;   
             };
-            case 2: {
+
+            case 2: //Nhập giáo viên
+            {
                 int soLuong;
                 cout << "Nhap so luong giao vien: ";
                 cin >> soLuong;
@@ -275,19 +269,11 @@ int main()
                     cout << "Da them thanh cong!" << endl;
                 }
                 pauseAndClear();
-                
-                char save;
-                cout << "Ban co muon luu vao file? (Y/N): ";
-                cin >> save;
-                if (save == 'Y' || save == 'y') {
-                    ghiFileGV("GiaoVien.txt", dsgv);
-                    cout << "Da them thanh cong!" << endl;
-                }
-                pauseAndClear();
                 break;
             };
             
-            case 3:{ //nhập bảng điểm
+            case 3: //nhập bảng điểm
+            {
                 if (dshs.empty()) {
                     cout << "Danh sach hoc sinh dang trong! \n";
                     break;
@@ -312,15 +298,6 @@ int main()
                     cout << "Nhap diem thi: "; cin >> bd.DT;
                     dsbd.push_back(bd); 
                 }
-
-                char save;
-                cout << "Ban co muon luu vao file? (Y/N): ";
-                cin >> save;
-                if (save == 'Y' || save == 'y') {
-                    ghiFileBD("BangDiem.txt", dsbd);
-                    cout << "Da them thanh cong!" << endl;
-                }
-                pauseAndClear();
 
                 char save;
                 cout << "Ban co muon luu vao file? (Y/N): ";
@@ -630,7 +607,117 @@ int main()
                 
             };
 
-            case 12:{
+            case 12: //xếp loại học lực
+            {   
+                vector<HocSinh> dshs = docHocSinhTuFile("HocSinh.txt");
+    vector<BangDiem> dsbd = docBangDiemTuFile("BangDiem.txt");
+
+    if (dshs.empty() || dsbd.empty()) {
+        cout << "Khong co du lieu de hien thi!\n";
+        break;
+    }
+
+    string lop;
+    cout << "Nhap lop: ";
+    cin >> lop;
+
+    // Lọc học sinh theo lớp
+    vector<HocSinh> hsTheoLop;
+    for (const auto& hs : dshs) {
+        if (hs.lop == lop) {
+            hsTheoLop.push_back(hs);
+        }
+    }
+
+    if (hsTheoLop.empty()) {
+        cout << "Khong co hoc sinh nao trong lop " << lop << "!\n";
+        break;
+    }
+
+    // Hiển thị tiêu đề báo cáo
+    cout << "\n============ XEP LOAI HOC LUC - LOP " << lop << " ============\n";
+    cout << left << setw(15) << "Ma hoc sinh" << setw(20) << "Ten hoc sinh" << setw(10) << "Diem TB" << setw(15) << "Hoc luc" << endl;
+
+    // Xếp loại học lực
+    for (const auto& hs : hsTheoLop) {
+        float tongDiem = 0;
+        int soMon = 0;
+
+        // Tính điểm trung bình của học sinh
+        for (const auto& bd : dsbd) {
+            if (bd.maHS == hs.maHS) {
+                tongDiem += bd.diemTB(); 
+                soMon++; 
+            }
+        }
+
+        float diemTB = (soMon > 0) ? (tongDiem / soMon) : -1;
+
+        // Xác định học lực
+        string hocLuc;
+        if (diemTB >= 9) {
+            hocLuc = "Xuat sac";
+        } else if (diemTB >= 8) {
+            hocLuc = "Gioi";
+        } else if (diemTB >= 6.5) {
+            hocLuc = "Kha";
+        } else if (diemTB >= 5) {
+            hocLuc = "Trung binh";
+        } else {
+            hocLuc = "Yeu";
+        }
+
+        // Hiển thị kết quả
+        cout << left << setw(15) << hs.maHS << setw(20) << hs.tenHS << setw(10) << round(diemTB * 100) / 100 << setw(15) << hocLuc << endl;
+    }
+    cout << "========================================================\n";
+
+    // Có muốn lưu kết quả ra file không?
+    char save;
+    cout << "Ban co muon luu ket qua vao file? (Y/N): ";
+    cin >> save;
+
+    if (save == 'Y' || save == 'y') {
+        ofstream fileout("XepLoaiHocLuc.txt");
+        fileout << "\n============ XEP LOAI HOC LUC - LOP " << lop << " ============\n";
+        fileout << left << setw(15) << "Ma hoc sinh" << setw(20) << "Ten hoc sinh" << setw(10) << "Diem TB" << setw(15) << "Hoc luc" << endl;
+
+        // Lưu kết quả vào file
+        for (const auto& hs : hsTheoLop) {
+            float tongDiem = 0;
+            int soMon = 0;
+
+            for (const auto& bd : dsbd) {
+                if (bd.maHS == hs.maHS) {
+                    tongDiem += bd.diemTB(); 
+                    soMon++; 
+                }
+            }
+
+            float diemTB = (soMon > 0) ? (tongDiem / soMon) : -1;
+
+            string hocLuc;
+            if (diemTB >= 9) {
+                hocLuc = "Xuat sac";
+            } else if (diemTB >= 8) {
+                hocLuc = "Gioi";
+            } else if (diemTB >= 6.5) {
+                hocLuc = "Kha";
+            } else if (diemTB >= 5) {
+                hocLuc = "Trung binh";
+            } else {
+                hocLuc = "Yeu";
+            }
+
+            fileout << left << setw(15) << hs.maHS << setw(20) << hs.tenHS << setw(10) << round(diemTB * 100) / 100 << setw(15) << hocLuc << endl;
+        }
+        fileout << "========================================================\n";
+        fileout.close();
+        cout << "Ket qua da duoc luu vao file XepLoaiHocLuc.txt\n";
+    }
+
+    pauseAndClear();
+    break;
                 
             };
 

@@ -339,14 +339,189 @@ int main() {
                     break;
                 }
                 
+                case 13: { // Xếp loại học lực
+                    vector<HocSinh> dshs = docHocSinhTuFile("HocSinh.txt");
+                    vector<BangDiem> dsbd = docBangDiemTuFile("BangDiem.txt");
+                
+                    if (dshs.empty() || dsbd.empty()) {
+                        cout << "Khong co du lieu de xep loai hoc luc!\n";
+                        break;
+                    }
+                
+                    string lop;
+                    cout << "Nhap lop: ";
+                    cin >> lop;
+                
+                    // Lọc học sinh theo lớp
+                    vector<HocSinh> hsTheoLop;
+                    for (const auto& hs : dshs) {
+                        if (hs.lop == lop) {
+                            hsTheoLop.push_back(hs);
+                        }
+                    }
+                
+                    if (hsTheoLop.empty()) {
+                        cout << "Khong co hoc sinh nao trong lop " << lop << "!\n";
+                        break;
+                    }
+                
+                    cout << "\n========= XEP LOAI HOC LUC - LOP " << lop << " =========\n";
+                    cout << left << setw(15) << "Ma hoc sinh" << setw(20) << "Ten hoc sinh" 
+                         << setw(15) << "Diem TB" << setw(15) << "Xep loai" << endl;
+                
+                    vector<string> monChinh = {"Toan", "Van", "Anh"}; // 3 môn chính
+                
+                    for (const auto& hs : hsTheoLop) {
+                        float tongDiem = 0;
+                        int soMon = 0;
+                        map<string, float> diemMon;
+                        bool monChinhDat = false;
+                        bool tatCaMonDat = true;
+                
+                        for (const auto& bd : dsbd) {
+                            if (bd.maHS == hs.maHS) {
+                                float diemTB = bd.diemTB();
+                                diemMon[bd.maMH] = diemTB;
+                                tongDiem += diemTB;
+                                soMon++;
+                
+                                // Kiểm tra môn chính đạt yêu cầu
+                                if (find(monChinh.begin(), monChinh.end(), bd.maMH) != monChinh.end() && diemTB >= 8.0) {
+                                    monChinhDat = true;
+                                }
+                
+                                // Kiểm tra nếu có môn nào dưới mức quy định
+                                if (diemTB < 6.5) tatCaMonDat = false;
+                            }
+                        }
+                
+                        if (soMon == 0) {
+                            cout << left << setw(15) << hs.maHS << setw(20) << hs.tenHS
+                                 << setw(15) << "N/A" << setw(15) << "Yeu/Kem" << endl;
+                            continue;
+                        }
+                
+                        // Tính điểm trung bình
+                        float TB = round((tongDiem / soMon) * 100) / 100;
+                        string xepLoai = "Yeu/Kem";
+                
+                        if (TB >= 8.0 && monChinhDat && tatCaMonDat) {
+                            xepLoai = "Gioi";
+                        } else if (TB >= 6.5 && monChinhDat && TB >= 5.0) {
+                            xepLoai = "Kha";
+                        } else if (TB >= 5.0 && monChinhDat && TB >= 3.5) {
+                            xepLoai = "Trung Binh";
+                        }
+                
+                        cout << left << setw(15) << hs.maHS << setw(20) << hs.tenHS
+                             << setw(15) << TB << setw(15) << xepLoai << endl;
+                    }
+                
+                    cout << "========================================================\n";
+                
+                   // pauseAndClear();
+                    break;
+                };
+             
+                case 14: { // Xếp loại học lực
+                    vector<HocSinh> dshs = docHocSinhTuFile("HocSinh.txt");
+                    vector<BangDiem> dsbd = docBangDiemTuFile("BangDiem.txt");
+                
+                    if (dshs.empty() || dsbd.empty()) {
+                        cout << "Khong co du lieu de xep loai hoc luc!\n";
+                        break;
+                    }
+                
+                    string lop;
+                    cout << "Nhap lop: ";
+                    cin >> lop;
+                
+                    // Lọc học sinh theo lớp
+                    vector<HocSinh> hsTheoLop;
+                    for (const auto& hs : dshs) {
+                        if (hs.lop == lop) {
+                            hsTheoLop.push_back(hs);
+                        }
+                    }
+                
+                    if (hsTheoLop.empty()) {
+                        cout << "Khong co hoc sinh nao trong lop " << lop << "!\n";
+                        break;
+                    }
+                
+                    cout << "\n========= XEP LOAI HOC LUC - LOP " << lop << " =========\n";
+                    cout << left << setw(15) << "Ma hoc sinh" << setw(20) << "Ten hoc sinh" 
+                         << setw(15) << "Diem TB" << setw(15) << "Xep loai" << endl;
+                
+                    vector<string> monChinh = {"Toan", "Van", "Anh"}; // Đổi "NgoaiNgu" thành "Anh"
+                
+                    for (const auto& hs : hsTheoLop) {
+                        float tongDiem = 0;
+                        int soMon = 0;
+                        map<string, float> diemMon;
+                        bool monChinhDat = false;
+                        bool khongCoMonThapHon65 = true;
+                        bool khongCoMonThapHon50 = true;
+                        bool khongCoMonThapHon35 = true;
+                
+                        cout << "\nDang xu ly hoc sinh: " << hs.maHS << " - " << hs.tenHS << endl;
+                
+                        for (const auto& bd : dsbd) {
+                            if (bd.maHS == hs.maHS) {
+                                float diemTB = bd.diemTB();
+                                diemMon[bd.maMH] = diemTB;
+                                tongDiem += diemTB;
+                                soMon++;
+                                
+                                cout << "  Mon: " << bd.maMH << " - Diem TB: " << diemTB << endl;
+                
+                                // Kiểm tra môn chính đạt yêu cầu
+                                if (find(monChinh.begin(), monChinh.end(), bd.maMH) != monChinh.end() && diemTB >= 8.0) {
+                                    monChinhDat = true;
+                                }
+                
+                                // Kiểm tra xem có môn nào dưới ngưỡng không
+                                if (diemTB < 6.5) khongCoMonThapHon65 = false;
+                                if (diemTB < 5.0) khongCoMonThapHon50 = false;
+                                if (diemTB < 3.5) khongCoMonThapHon35 = false;
+                            }
+                        }
+                
+                        if (soMon == 0) {
+                            cout << left << setw(15) << hs.maHS << setw(20) << hs.tenHS
+                                 << setw(15) << "N/A" << setw(15) << "Yeu/Kem" << endl;
+                            continue;
+                        }
+                
+                        // Tính điểm trung bình
+                        float diemTB = round((tongDiem / soMon) * 100) / 100;
+                        cout << "  -> Tong diem: " << tongDiem << ", So mon: " << soMon << ", Diem TB: " << diemTB << endl;
+                        
+                        string xepLoai = "Yeu/Kem";
+                
+                        if (diemTB >= 8.0 && monChinhDat && khongCoMonThapHon65) {
+                            xepLoai = "Gioi";
+                        } else if (diemTB >= 6.5 && monChinhDat && khongCoMonThapHon50) {
+                            xepLoai = "Kha";
+                        } else if (diemTB >= 5.0 && monChinhDat && khongCoMonThapHon35) {
+                            xepLoai = "Trung Binh";
+                        }
+                
+                        cout << left << setw(15) << hs.maHS << setw(20) << hs.tenHS
+                             << setw(15) << diemTB << setw(15) << xepLoai << endl;
+                    }
+                
+                    cout << "========================================================\n";
+                
+                 //   pauseAndClear();
+                    break;
+                };
+                
+           
                 
             case 0:
-                cout << "Thoat chuong trinh.\n";
-                break;
-            case 10:
-            {
-                
-            }
+            cout << "Thoat chuong trinh.\n";
+            break;
             default:
                 cout << "Lua chon khong hop le. Vui long chon lai!\n";
         }
