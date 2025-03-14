@@ -1,9 +1,0 @@
-
-=========== BANG DIEM CUA HOC SINH Pham Minh Chau ===========
-Mon Hoc   Diem mieng     Diem TX        Diem Kiem Tra  Diem Thi       Diem TB        
- TOAN     10             7.5            10             10             9.64           
- LY       10             5              10             9              8.86           
- HOA      9              8              8              7              7.71           
- SINH     8              7              7              9.5            8.21           
- VAN      10             9              9              9              9.14           
- ANH      10             9              9              8              8.71           

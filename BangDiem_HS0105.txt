@@ -1,9 +1,0 @@
-
-=========== BANG DIEM CUA HOC SINH Nguyen Huong Giang ===========
-Mon Hoc   Diem mieng     Diem TX        Diem Kiem Tra  Diem Thi       Diem TB        
- TOAN     8              10             9              8              8.57           
- LY       10             10             8              9              9              
- HOA      10             9              10             9              9.43           
- SINH     7              8              9              9              8.57           
- VAN      8              8              9              8              8.29           
- ANH      8              7              7              6              6.71           
