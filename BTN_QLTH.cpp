@@ -458,9 +458,73 @@ int main()
                 break;
             }
             
-            case 7:{
-                
-            };
+            case 7: {
+                vector<HocSinh> dshs = docHocSinhTuFile("HocSinh.txt");
+                vector<BangDiem> dsbd = docBangDiemTuFile("BangDiem.txt");
+            
+                if (dshs.empty() || dsbd.empty()) {
+                    cout << "Khong co du lieu!\n";
+                    break;
+                }
+            
+                string maMH;
+                cout << "Nhap ma mon hoc: ";
+                cin >> maMH;
+            
+                // Lọc điểm theo môn học
+                vector<BangDiem> diemTheoMon;
+                for (const auto& bd : dsbd) {
+                    if (bd.maMH == maMH) {
+                        diemTheoMon.push_back(bd);
+                    }
+                }
+            
+                if (diemTheoMon.empty()) {
+                    cout << "Khong co du lieu diem cho mon hoc " << maMH << "!\n";
+                    break;
+                }
+            
+                // Hiển thị danh sách điểm theo môn học
+                cout << "\n=================== DANH SACH DIEM THEO MON " << maMH << " ===================\n";
+                cout << left << setw(15) << "Ma hoc sinh" << setw(20) << "Ten hoc sinh" << setw(10) << "Diem TB" << endl;
+                for (const auto& bd : diemTheoMon) {
+                    // Tìm tên học sinh tương ứng
+                    string tenHS;
+                    for (const auto& hs : dshs) {
+                        if (hs.maHS == bd.maHS) {
+                            tenHS = hs.tenHS;
+                            break;
+                        }
+                    }
+                    cout << left << setw(15) << bd.maHS << setw(20) << tenHS << setw(10) << bd.diemTB() << endl;
+                }
+            
+                // Có muốn lưu danh sách ra file không?
+                char save;
+                cout << "Ban co muon luu danh sach vao file? (Y/N): ";
+                cin >> save;
+            
+                if (save == 'Y' || save == 'y') {
+                    ofstream fileout("DanhSachDiemTheoMon_" + maMH + ".txt");
+                    fileout << "\n=================== DANH SACH DIEM THEO MON " << maMH << " ===================\n";
+                    fileout << left << setw(15) << "Ma hoc sinh" << setw(20) << "Ten hoc sinh" << setw(10) << "Diem TB" << endl;
+                    for (const auto& bd : diemTheoMon) {
+                        string tenHS;
+                        for (const auto& hs : dshs) {
+                            if (hs.maHS == bd.maHS) {
+                                tenHS = hs.tenHS;
+                                break;
+                            }
+                        }
+                        fileout << left << setw(15) << bd.maHS << setw(20) << tenHS << setw(10) << bd.diemTB() << endl;
+                    }
+                    fileout.close();
+                    cout << "Danh sach da duoc luu vao file DanhSachDiemTheoMon_" << maMH << ".txt\n";
+                }
+            
+                pauseAndClear();
+                break;
+            }
 
             case 8: //báo cáo kết quả học tập theo lớp
             {
@@ -739,9 +803,41 @@ int main()
                 break;
             }            
 
-            case 11:{
-                
-            };
+            case 11: {
+                vector<HocSinh> dshs = docHocSinhTuFile("HocSinh.txt");
+                vector<GiaoVien> dsgv = docGiaoVienTuFile("GiaoVien.txt");
+            
+                if (dshs.empty() && dsgv.empty()) {
+                    cout << "Khong co du lieu de tim kiem!\n";
+                    break;
+                }
+            
+                string keyword;
+                cout << "Nhap ten hoac ma de tim kiem: ";
+                cin.ignore();
+                getline(cin, keyword);
+            
+                // Tìm kiếm học sinh
+                cout << "\nKet qua tim kiem hoc sinh:\n";
+                cout << left << setw(10) << "Ma HS" << setw(20) << "Ten HS" << setw(10) << "Lop" << setw(20) << "Dia chi" << setw(15) << "SDT" << setw(15) << "SDT PH" << endl;
+                for (const auto& hs : dshs) {
+                    if (hs.tenHS.find(keyword) != string::npos || hs.maHS.find(keyword) != string::npos) {
+                        hs.xuatHS();
+                    }
+                }
+            
+                // Tìm kiếm giáo viên
+                cout << "\nKet qua tim kiem giao vien:\n";
+                cout << left << setw(10) << "Ma GV" << setw(20) << "Ten GV" << setw(15) << "Mon Day" << setw(15) << "SDT" << endl;
+                for (const auto& gv : dsgv) {
+                    if (gv.tenGV.find(keyword) != string::npos || gv.maGV.find(keyword) != string::npos) {
+                        gv.xuatGV();
+                    }
+                }
+            
+                pauseAndClear();
+                break;
+            }
 
             case 12: //xếp loại học lực
             {   
