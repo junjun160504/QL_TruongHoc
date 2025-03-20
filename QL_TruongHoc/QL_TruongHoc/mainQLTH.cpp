@@ -25,43 +25,44 @@ public:
         cout << "Nhap ten giao vien: "; cin.ignore(); getline(cin, tenGV);
         cout << "Nhap mon day: "; getline(cin, monDay);
         cout << "Nhap so dien thoai: "; cin >> sdt;
-		tt = true;
+        tt = true;
     }
     void xuatGV() const {
         if (tt) {
-			cout << left << setfill(' ') << setw(10) << maGV << setw(20) << tenGV 
+            cout << left << setfill(' ') << setw(10) << maGV << setw(20) << tenGV
                 << setw(15) << monDay << setw(15) << sdt << endl;
         }
     }
-	void xoaGV() {
-		tt = false;
-	}
+    void xoaGV() {
+        tt = false;
+    }
 };
 
 //lớp Học sinh
 class HocSinh {
 public:
     string maHS, tenHS, lop, diaChi, sdt, sdtPH;
-	bool tt;  
+    bool tt;
 
     // Hàm tạo mã học sinh kế tiếp (tăng dần)
     void nhapHS(string ma) {
         maHS = ma;
-        cout << "Nhap ten hoc sinh: "; cin.ignore(); getline(cin, tenHS);
+        cout << "Nhap ten hoc sinh: ";  //cin.ignore(); 
+        getline(cin, tenHS);
         cout << "Nhap lop: "; cin >> lop; //cin.ignore(); getline(cin, lop);
         cout << "Nhap dia chi: "; cin.ignore(); getline(cin, diaChi);
         cout << "Nhap so dien thoai: "; cin >> sdt;
         cout << "Nhap so dien thoai phu huynh: "; cin >> sdtPH;
-		tt = true;
+        tt = true;
     }
     void xuatHS() const {
-		if (tt) {
+        if (tt) {
             cout << left << setw(10) << "Ma HS" << setw(20) << "Ten HS" << setw(10) << "Lop" << setw(20) << "Dia Chi"
-                << setw(15) << "So DT" << setw(15) << "SDT PH"  << endl;
+                << setw(15) << "So DT" << setw(15) << "SDT PH" << endl;
             cout << "----------------------------------------------------------------------------------\n";
-            cout << left << setfill(' ') << setw(10) << maHS << setw(20) << tenHS 
+            cout << left << setfill(' ') << setw(10) << maHS << setw(20) << tenHS
                 << setw(10) << lop << setw(20) << diaChi << setw(15) << sdt << setw(15) << sdtPH << endl;
-		}
+        }
     }
     void xoaHS() {
         tt = false;
@@ -71,32 +72,29 @@ public:
 //lớp Bảng điểm
 class BangDiem : public HocSinh, public GiaoVien {
 public:
-	string maMH, maHS_D;
+    string maMH, maHS_D;
     float DM, DCC, DKT, DT;
-	bool tt;
+    bool tt;
 
-    void nhapDiem() {
+    void nhapDiem(string maHS, string monDay) {
         //HocSinh::nhapHS(dshs); // Nhập thông tin học sinh
-		//GiaoVien::nhapGV(); // Nhập thông tin giáo viên
+        //GiaoVien::nhapGV(); // Nhập thông tin giáo viên
         maHS_D = maHS;
         maMH = monDay; // Mã môn học sẽ được lấy từ môn dạy của giáo viên
         cout << "Nhap diem mieng: "; cin >> DM;
         cout << "Nhap diem 15 phut: "; cin >> DCC;
         cout << "Nhap diem kiem tra: "; cin >> DKT;
         cout << "Nhap diem thi: "; cin >> DT;
-		tt = true;
+        tt = true;
     }
     float diemTB() const {
         return round((DM + DCC + DKT * 2 + DT * 3) / 7 * 100) / 100; //làm tròn đến 2 số thập phân
     }
     void xuatDiem() const {
         if (tt) {
-            cout << left << setfill(' ') << setw(10) << maHS << setw(10) << monDay  // Môn học từ giáo viên
+            cout << left << setfill(' ') << setw(10) << maHS_D << setw(10) << maMH  // Môn học từ giáo viên
                 << setw(8) << DM << setw(8) << DCC << setw(8) << DKT
                 << setw(8) << DT << setw(8) << diemTB() << endl;
-            // Hiển thị thông tin học sinh và giáo viên
-            HocSinh::xuatHS();
-            GiaoVien::xuatGV();
         }
     }
     void xoaDiem() {
@@ -162,8 +160,8 @@ vector<HocSinh> docHocSinhTuFile(const string& tenFile)
         return dshs;
     }
     string line;
-    while (getline(filein, line)) { 
-        stringstream ss(line); 
+    while (getline(filein, line)) {
+        stringstream ss(line);
         HocSinh hs;
         getline(ss, hs.maHS, ',');
         getline(ss, hs.tenHS, ',');
@@ -259,7 +257,7 @@ static string taoMaHS() {
 void ghiFileGV(const string& tenFile, const vector<GiaoVien>& dsgv) {
     ofstream fileout(tenFile, ios::app);
     for (const auto& gv : dsgv) { // duyệt qua từng phần tử trong vector
-        if(gv.tt) {
+        if (gv.tt) {
             fileout << gv.maGV << "," << gv.tenGV << "," << gv.monDay << "," << gv.sdt << "," << gv.tt << endl;
         }
     }
@@ -269,7 +267,7 @@ void ghiFileGV(const string& tenFile, const vector<GiaoVien>& dsgv) {
 //ghi file Học Sinh
 void ghiFileHS(const string& tenFile, const vector<HocSinh>& dshs) {
     ofstream fileout(tenFile, ios::app);
-    for (const auto& hs : dshs) { 
+    for (const auto& hs : dshs) {
         if (hs.tt) {
             fileout << hs.maHS << "," << hs.tenHS << "," << hs.lop << ","
                 << "\"" << hs.diaChi << "\"" << "," << hs.sdt << "," << hs.sdtPH << "," << hs.tt << endl;
@@ -281,9 +279,9 @@ void ghiFileHS(const string& tenFile, const vector<HocSinh>& dshs) {
 //ghi file Bảng Điểm
 void ghiFileBD(const string& tenFile, const vector<BangDiem>& dsbd) {
     ofstream fileout(tenFile, ios::app);
-    for (const auto& bd : dsbd) { 
+    for (const auto& bd : dsbd) {
         if (bd.tt) {
-            fileout << bd.maHS << "," << bd.maMH << "," << bd.DM << "," << bd.DCC << "," << bd.DKT << "," << bd.DT << endl;
+            fileout << bd.maHS_D << "," << bd.maMH << "," << bd.DM << "," << bd.DCC << "," << bd.DKT << "," << bd.DT << "," << bd.tt <<endl;
         }
     }
     fileout.close();
@@ -297,41 +295,37 @@ void suaFileHS(const string& tenFile, const vector<HocSinh>& dshs) {
         return;
     }
     for (const auto& hs : dshs) {
-            fileout << hs.maHS << "," << hs.tenHS << "," << hs.lop << ","
-                << "\"" << hs.diaChi << "\"" << "," << hs.sdt << "," << hs.sdtPH << "," << hs.tt << endl;
+        fileout << hs.maHS << "," << hs.tenHS << "," << hs.lop << ","
+            << "\"" << hs.diaChi << "\"" << "," << hs.sdt << "," << hs.sdtPH << "," << hs.tt << endl;
     }
     fileout.close();
 }
 
 //Sửa file GV
-void suaFileGV(const string& tenFile, const vector <GiaoVien>& dsgv )
+void suaFileGV(const string& tenFile, const vector <GiaoVien>& dsgv)
 {
-	ofstream fileout(tenFile, ios::out);
-	if (!fileout) {
-		cout << "Khong the mo file de ghi!" << endl;
-		return;
-	}
-	for (const auto& gv : dsgv) {
-		if (gv.tt) {
-			fileout << gv.maGV << "," << gv.tenGV << "," << gv.monDay << "," << gv.sdt << "," << gv.tt << endl;
-		}
-	}
-	fileout.close();
+    ofstream fileout(tenFile, ios::out);
+    if (!fileout) {
+        cout << "Khong the mo file de ghi!" << endl;
+        return;
+    }
+    for (const auto& gv : dsgv) {
+        fileout << gv.maGV << "," << gv.tenGV << "," << gv.monDay << "," << gv.sdt << "," << gv.tt << endl;
+    }
+    fileout.close();
 }
 
 //Sửa file BD
 void suaFileBD(const string& tenFile, const vector<BangDiem>& dsbd) {
-	ofstream fileout(tenFile, ios::out);
-	if (!fileout) {
-		cout << "Khong the mo file de ghi!" << endl;
-		return;
-	}
-	for (const auto& bd : dsbd) {
-		if (bd.tt) {
-			fileout << bd.maHS << "," << bd.maMH << "," << bd.DM << "," << bd.DCC << "," << bd.DKT << "," << bd.DT << endl;
-		}
-	}
-	fileout.close();
+    ofstream fileout(tenFile, ios::out);
+    if (!fileout) {
+        cout << "Khong the mo file de ghi!" << endl;
+        return;
+    }
+    for (const auto& bd : dsbd) {
+        fileout << bd.maHS << "," << bd.maMH << "," << bd.DM << "," << bd.DCC << "," << bd.DKT << "," << bd.DT << "," << bd.tt << endl;
+    }
+    fileout.close();
 }
 
 // Hàm tính điểm trung bình của học sinh
@@ -483,7 +477,7 @@ void timHSTheoMa()
     }
     string keyword;
     cout << "Nhap ma de tim kiem: "; cin.ignore(); getline(cin, keyword);
-    
+
     bool foundStudent = false;
     for (const auto& hs : dshs) {
         if (hs.tt && hs.maHS.find(keyword) != string::npos) {
@@ -532,14 +526,14 @@ void timHSTheoTen()
 }
 
 // Hàm hiển thị submenu cho tìm kiếm
-void dptimKiemHS(const string& entity) {
-	cout << "\n================Xem / Tim kiem " << entity << "==============" << endl;
+void displayTimKiemHS(const string& entity) {
+    cout << "\n================Xem / Tim kiem " << entity << "==============" << endl;
     cout << "|1. Xem danh sach hoc sinh theo lop            |" << endl;
-	cout << "|2. Tim kiem hoc sinh theo ma                  |" << endl;
-	cout << "|3. Tim kiem hoc sinh theo ten                 |" << endl;
+    cout << "|2. Tim kiem hoc sinh theo ma                  |" << endl;
+    cout << "|3. Tim kiem hoc sinh theo ten                 |" << endl;
     cout << "|0. Quay lai                                   |" << endl;
-	cout << "============================================" << endl;
-	cout << "Chon chuc nang: ";
+    cout << "============================================" << endl;
+    cout << "Chon chuc nang: ";
 }
 
 // Case tìm kiếm
@@ -548,63 +542,57 @@ void timKiemHS() {
     vector<HocSinh> dshs = docHocSinhTuFile("HocSinh.txt");
     int chonTK;
     while (true) {
-        dptimKiemHS("Hoc Sinh");
+        displayTimKiemHS("Hoc Sinh");
         cin >> chonTK;
         switch (chonTK)
         {
-            case 1: //Xem danh sach hoc sinh theo lop  
-            {
-                inDanhSachHocSinh();
-                pauseAndClear();
-                break;
-            };
-            case 2: //Tim kiem hoc sinh theo ma
-            {
-                timHSTheoMa();
-                pauseAndClear();
-                break;
-            };
-            case 3: //Tim kiem hoc sinh theo ten
-            {
-                timHSTheoTen();
-                pauseAndClear();
-                break;
-            };
-            case 0: //quay lại
-            {
-                return;
-            };
-            default:
-            {
-                cout << "\nChuc nang khong hop le!" << endl;
-                return;
-            };
+        case 1: //Xem danh sach hoc sinh theo lop  
+        {
+            inDanhSachHocSinh();
+            pauseAndClear();
+            break;
+        };
+        case 2: //Tim kiem hoc sinh theo ma
+        {
+            timHSTheoMa();
+            pauseAndClear();
+            break;
+        };
+        case 3: //Tim kiem hoc sinh theo ten
+        {
+            timHSTheoTen();
+            pauseAndClear();
+            break;
+        };
+        case 0: //quay lại
+        {
+            return;
+        };
+        default:
+        {
+            cout << "\nChuc nang khong hop le!" << endl;
+            return;
+        };
         }
     }
 }
 
-// Hàm hiển thị submenu cho sắp xếp
-void displaySortMenu(const string& entity) {
-	cout << "\n==================Sap xep " << entity << "================" << endl;
-	cout << "|1. Sap xep theo ten                           |" << endl;
-	cout << "|2. Sap xep theo diem trung binh               |" << endl;
-	cout << "============================================" << endl;
-	cout << "Chon chuc nang: ";
-}
-
 // Hàm hiển thị submenu cho báo cáo
-void displayReportMenu() {
-	cout << "\n==================Bao cao================" << endl;
-	cout << "|1. Bao cao ket qua hoc tap theo lop     |" << endl;
-	cout << "|2. In danh sach diem trung binh cua HS  |" << endl;
-	cout << "|3. Hien thi HS co diem trung binh cao nhat|" << endl;
-	cout << "============================================" << endl;
-	cout << "Chon chuc nang: ";
+void displayMenuBaoCao() {
+    cout << "\n================== Bao cao =================" << endl;
+    cout << "|1. Danh sach hoc sinh theo lop              |" << endl;
+    cout << "|2. Danh sach giao vien                      |" << endl;
+    cout << "|3. Bao cao ket qua hoc tap                  |" << endl;
+    cout << "|4. Bao cao xep loai hoc luc hoc sinh        |" << endl;
+    cout << "|5. Hien thi HS co diem trung binh cao nhat  |" << endl;
+    cout << "|0. Quay lai                                 |" << endl;
+    cout << "==============================================" << endl;
+    cout << "Chon chuc nang: ";
 }
 
 // Hàm thêm học sinh vào danh sách
 void themHocSinh() {
-    vector<HocSinh> dshs = docHocSinhTuFile("HocSinh.txt");
+    vector<HocSinh> dshs;
     int soLuong;
     cout << "Nhap so luong hoc sinh: ";
     cin >> soLuong;
@@ -616,7 +604,7 @@ void themHocSinh() {
         dshs.push_back(hs);
     }
     if (confirmAction()) {
-        suaFileHS("HocSinh.txt", dshs);
+        ghiFileHS("HocSinh.txt", dshs);
         cout << "Da them hoc sinh moi!" << endl;
     }
     else {
@@ -712,10 +700,10 @@ void xoaHocSinh() {
 
 // Hàm thêm giáo viên vào danh sách
 void themGiaoVien() {
-	vector<GiaoVien> dsgv = docGiaoVienTuFile("GiaoVien.txt");
-	GiaoVien gv;    // Tạo đối tượng giáo viên
-	gv.nhapGV(taoMaGV());    // Gọi phương thức nhapGV() để nhập thông tin giáo viên
-	dsgv.push_back(gv);  // Thêm giáo viên vào danh sách
+    vector<GiaoVien> dsgv;
+    GiaoVien gv;    // Tạo đối tượng giáo viên
+    gv.nhapGV(taoMaGV());    // Gọi phương thức nhapGV() để nhập thông tin giáo viên
+    dsgv.push_back(gv);  // Thêm giáo viên vào danh sách
     if (confirmAction()) {
         ghiFileGV("GiaoVien.txt", dsgv);
         cout << "Da them giao vien moi!" << endl;
@@ -728,37 +716,37 @@ void themGiaoVien() {
 
 // Hàm sửa thông tin giáo viên
 void suaGiaoVien() {
-	vector<GiaoVien> dsgv = docGiaoVienTuFile("GiaoVien.txt");
-	string ma;
-	cout << "Nhap ma giao vien can sua: "; cin >> ma;
+    vector<GiaoVien> dsgv = docGiaoVienTuFile("GiaoVien.txt");
+    string ma;
+    cout << "Nhap ma giao vien can sua: "; cin >> ma;
 
-	// Tìm kiếm giáo viên trong danh sách
-	for (auto& gv : dsgv) {
-		if (gv.maGV == ma && gv.tt) { 
-			cout << "\nThong tin giao vien hien tai: " << endl;
-			gv.xuatGV(); 
-			
-			int choice;
-			cout << "\nBan muon sua thong tin nao?" << endl;
-			cout << "1. Sua ten giao vien" << endl;
-			cout << "2. Sua mon day" << endl;
-			cout << "3. Sua so dien thoai" << endl;
-			cout << "Chon chuc nang can sua: ";
-			cin >> choice;
-			switch (choice) {
-			    case 1:
-				    cout << "Nhap ten giao vien moi: "; cin.ignore(); getline(cin, gv.tenGV);  // Chỉ sửa tên giáo viên
-				    break;
-			    case 2:
-				    cout << "Nhap mon day moi: "; cin.ignore(); getline(cin, gv.monDay);  // Chỉ sửa môn dạy
-				    break;
-			    case 3:
-				    cout << "Nhap so dien thoai moi: "; cin >> gv.sdt;  // Chỉ sửa số điện thoại
-				    break;
-			    default:
-				    cout << "Chuc nang khong hop le!" << endl;
-				    return;
-			}
+    // Tìm kiếm giáo viên trong danh sách
+    for (auto& gv : dsgv) {
+        if (gv.maGV == ma && gv.tt) {
+            cout << "\nThong tin giao vien hien tai: " << endl;
+            gv.xuatGV();
+
+            int choice;
+            cout << "\nBan muon sua thong tin nao?" << endl;
+            cout << "1. Sua ten giao vien" << endl;
+            cout << "2. Sua mon day" << endl;
+            cout << "3. Sua so dien thoai" << endl;
+            cout << "Chon chuc nang can sua: ";
+            cin >> choice;
+            switch (choice) {
+            case 1:
+                cout << "Nhap ten giao vien moi: "; cin.ignore(); getline(cin, gv.tenGV);  // Chỉ sửa tên giáo viên
+                break;
+            case 2:
+                cout << "Nhap mon day moi: "; cin.ignore(); getline(cin, gv.monDay);  // Chỉ sửa môn dạy
+                break;
+            case 3:
+                cout << "Nhap so dien thoai moi: "; cin >> gv.sdt;  // Chỉ sửa số điện thoại
+                break;
+            default:
+                cout << "Chuc nang khong hop le!" << endl;
+                return;
+            }
             if (confirmAction()) {
                 suaFileGV("GiaoVien.txt", dsgv);
                 cout << "Da sua thong tin giao vien!" << endl;
@@ -767,22 +755,22 @@ void suaGiaoVien() {
                 cout << "Huy sua.\n";
             }
             return;
-		}
-	}
-	cout << "Giao vien khong ton tai hoac da bi xoa!" << endl;
+        }
+    }
+    cout << "Giao vien khong ton tai hoac da bi xoa!" << endl;
 }
 
 // Hàm xóa giáo viên
 void xoaGiaoVien() {
-	vector<GiaoVien> dsgv = docGiaoVienTuFile("GiaoVien.txt");
-	string ma;
-	cout << "Nhap ma giao vien can xoa: ";
-	cin >> ma;
+    vector<GiaoVien> dsgv = docGiaoVienTuFile("GiaoVien.txt");
+    string ma;
+    cout << "Nhap ma giao vien can xoa: ";
+    cin >> ma;
 
-	for (auto& gv : dsgv) {
-		if (gv.maGV == ma && gv.tt) { 
-			cout << "\nThong tin giao vien can xoa: " << endl;
-			gv.xuatGV();
+    for (auto& gv : dsgv) {
+        if (gv.maGV == ma && gv.tt) {
+            cout << "\nThong tin giao vien can xoa: " << endl;
+            gv.xuatGV();
             if (confirmAction()) {
                 gv.xoaGV();
                 suaFileGV("GiaoVien.txt", dsgv);
@@ -792,52 +780,24 @@ void xoaGiaoVien() {
                 cout << "Huy xoa.\n";
             }
             return;
-		}
-	}
-	cout << "Giao vien khong ton tai!" << endl;
-}
-
-// Hàm in danh sách giáo viên
-void inDanhSachGiaoVien() {
-    vector<GiaoVien> dsgv = docGiaoVienTuFile("GiaoVien.txt");
-	if (dsgv.empty()) {
-		cout << "Khong co du lieu giao vien!\n";
-		return;
-	}
-	// Sắp xếp danh sách giáo viên hợp lệ (tt = true)
-	sort(dsgv.begin(), dsgv.end(), [](const GiaoVien& a, const GiaoVien& b) {
-		return a.tenGV < b.tenGV;  // Sắp xếp theo tên giáo viên
-		});
-	// Hiển thị danh sách giáo viên hợp lệ đã sắp xếp
-	cout << "\n=================================================== DANH SACH GIAO VIEN =========================================================\n" << endl;
-	cout << "| " << left << setw(10) << "Ma GV" << setw(20) << "Ten GV" << setw(15) << "Mon day" << setw(15) << "SDT" << "|" << endl;
-	cout << "--------------------------------------------------------------------------------------------------------------------------------\n";
-	bool found = false;
-	for (const auto& gv : dsgv) {
-		if (gv.tt) {  // Kiểm tra giáo viên hợp lệ (tt = true)
-			cout << "| " << left << setw(10) << gv.maGV << setw(20) << gv.tenGV << setw(15) << gv.monDay << setw(15) << gv.sdt << "|" << endl;
-			found = true;
-		}
-	}
-	cout << "================================================================================================================================\n";
-	if (!found) {
-		cout << "Khong co giao vien hop le de hien thi!" << endl;
-	}
+        }
+    }
+    cout << "Giao vien khong ton tai!" << endl;
 }
 
 // Hàm thêm bảng điểm vào danh sách
 void themBangDiem() {
     vector<HocSinh> dshs = docHocSinhTuFile("HocSinh.txt");
-    vector<BangDiem> dsbd = docBangDiemTuFile("BangDiem.txt");
-	BangDiem bd;    // Tạo đối tượng bảng điểm
+    vector<BangDiem> dsbd;
+    BangDiem bd;    // Tạo đối tượng bảng điểm
     string l, m;
-	cout << "Nhap lop can them diem: "; cin >> l;
-	cout << "Nhap ma mon hoc: "; cin >> m;
-    
+    cout << "Nhap lop can them diem: "; cin >> l;
+    cout << "Nhap ma mon hoc: "; cin >> m;
+
     // Lọc học sinh theo lớp
     vector<HocSinh> dshsLop;
     for (const auto& hs : dshs) {
-        if (hs.lop == l && hs.tt) { 
+        if (hs.lop == l && hs.tt) {
             dshsLop.push_back(hs);
         }
     }
@@ -850,8 +810,8 @@ void themBangDiem() {
     for (auto& hs : dshsLop) { // Thêm điểm cho từng học sinh trong lớp
         bd.maHS_D = hs.maHS;  // Gán mã học sinh
         bd.maMH = m;  // Mã môn học
-        cout << "\nNhap diem cho hoc sinh " << hs.tenHS << " (Mã HS: " << hs.maHS << "):\n";
-        bd.nhapDiem();  // Nhập điểm cho học sinh
+        cout << "\nNhap diem cho hoc sinh " << hs.tenHS << " (Ma HS: " << hs.maHS << "):\n";
+        bd.nhapDiem(bd.maHS_D, bd.maMH);  // Nhập điểm cho học sinh
         dsbd.push_back(bd); // Thêm bảng điểm vào danh sách
     }
     if (confirmAction()) {
@@ -866,84 +826,427 @@ void themBangDiem() {
 
 // Hàm sửa thông tin bảng điểm
 void suaBangDiem() {
-	vector<BangDiem> dsbd = docBangDiemTuFile("BangDiem.txt");
-	string maHS, maMon;
-	cout << "Nhap ma hoc sinh can sua diem: "; cin >> maHS;
+    vector<BangDiem> dsbd = docBangDiemTuFile("BangDiem.txt");
+    string maHS, maMon;
+    cout << "Nhap ma hoc sinh can sua diem: "; cin >> maHS;
     cout << "Nhap ma mon hoc can sua diem: "; cin >> maMon;
 
-	// Tìm kiếm bảng điểm trong danh sách
-	for (auto& bd : dsbd) {
-		if (bd.maHS == maHS && bd.maMH == maMon && bd.tt) {
-			cout << "\nThong tin bang diem hien tai: " << endl;
-			bd.xuatDiem();  // Hiển thị thông tin bảng điểm
-			
-			int choice;
-			cout << "\nBan muon sua thong tin nao?" << endl;
-			cout << "1. Sua diem mieng" << endl;
-			cout << "2. Sua diem 15 phut" << endl;
-			cout << "3. Sua diem kiem tra" << endl;
-			cout << "4. Sua diem thi" << endl;
-			cout << "Chon chuc nang can sua: ";
-			cin >> choice;
-			switch (choice) {
-			case 1:
-				cout << "Nhap diem mieng moi: "; cin >> bd.DM;  // Chỉ sửa điểm miệng
-				break;
-			case 2:
-				cout << "Nhap diem 15 phut moi: "; cin >> bd.DCC;  // Chỉ sửa điểm 15 phút
-				break;
-			case 3:
-				cout << "Nhap diem kiem tra moi: "; cin >> bd.DKT;  // Chỉ sửa điểm kiểm tra
-				break;
-			case 4:
-				cout << "Nhap diem thi moi: "; cin >> bd.DT;  // Chỉ sửa điểm thi
-				break;
-			default:
-				cout << "Chuc nang khong hop le!" << endl;
-				return;
-			}
-			ghiFileBD("BangDiem.txt", dsbd);  // Ghi lại vào file sau khi sửa
-			cout << "Da sua thong tin bang diem!" << endl;
-			return;
-		}
-	}
-	cout << "Bang diem khong ton tai hoac da bi xoa!" << endl;
+    // Tìm kiếm bảng điểm trong danh sách
+    for (auto& bd : dsbd) {
+        if (bd.maHS == maHS && bd.maMH == maMon && bd.tt) {
+            cout << "\nThong tin bang diem hien tai: " << endl;
+            bd.xuatDiem();  // Hiển thị thông tin bảng điểm học sinh
+
+            int choice;
+            cout << "\nBan muon sua thong tin nao?" << endl;
+            cout << "1. Sua diem mieng" << endl;
+            cout << "2. Sua diem 15 phut" << endl;
+            cout << "3. Sua diem kiem tra" << endl;
+            cout << "4. Sua diem thi" << endl;
+            cout << "Chon chuc nang can sua: ";
+            cin >> choice;
+            switch (choice) {
+            case 1:
+                cout << "Nhap diem mieng moi: "; cin >> bd.DM;  // Chỉ sửa điểm miệng
+                break;
+            case 2:
+                cout << "Nhap diem 15 phut moi: "; cin >> bd.DCC;  // Chỉ sửa điểm 15 phút
+                break;
+            case 3:
+                cout << "Nhap diem kiem tra moi: "; cin >> bd.DKT;  // Chỉ sửa điểm kiểm tra
+                break;
+            case 4:
+                cout << "Nhap diem thi moi: "; cin >> bd.DT;  // Chỉ sửa điểm thi
+                break;
+            default:
+                cout << "Chuc nang khong hop le!" << endl;
+                return;
+            }
+            suaFileBD("BangDiem.txt", dsbd);  // Ghi lại vào file sau khi sửa
+            cout << "Da sua thong tin bang diem!" << endl;
+            return;
+        }
+    }
+    cout << "Bang diem khong ton tai hoac da bi xoa!" << endl;
 }
 
 // Hàm xóa bảng điểm
-void xoaBangDiem(vector<BangDiem>& dsbd) {
-	string maHS;
-	cout << "Nhap ma hoc sinh can xoa diem: ";
-	cin >> maHS;
-	// Tìm bảng điểm trong danh sách
-	for (auto& bd : dsbd) {
-		if (bd.maHS == maHS && bd.tt) {  // Kiểm tra bảng điểm còn hợp lệ (tt = true)
-			cout << "\nThong tin bang diem can xoa: " << endl;
-			bd.xuatDiem();
-			char confirm;
-			cout << "\nBan co chac chan muon xoa bang diem nay? (y/n): ";
-			cin >> confirm;
-			if (confirm == 'y' || confirm == 'Y') {
-				bd.xoaDiem();  // Đánh dấu bảng điểm này là không hợp lệ (tt = false)
-				ghiFileBD("BangDiem.txt", dsbd);  // Ghi lại danh sách bảng điểm sau khi xóa vào file
-				cout << "Da xoa bang diem!" << endl;
+void xoaBangDiem() {
+    vector<BangDiem> dsbd = docBangDiemTuFile("BangDiem.txt");
+    string maHS, maMon;
+    cout << "Nhap ma hoc sinh can xoa diem: "; cin >> maHS;
+    cout << "Nhap ma mon hoc can xoa diem: "; cin >> maMon;
+    // Tìm bảng điểm trong danh sách
+    for (auto& bd : dsbd) { 
+        if (bd.maHS == maHS && bd.maMH == maMon && bd.tt) {  // Kiểm tra bảng điểm còn hợp lệ (tt = true)
+            cout << "\nThong tin bang diem can xoa: " << endl;
+            bd.xuatDiem();
+            if (confirmAction()) {
+                bd.xoaDiem();
+                suaFileBD("BangDiem.txt", dsbd);
+                cout << "Da xoa diem!" << endl;
+            }
+            else {
+                cout << "Huy xoa.\n";
+            }
+            return;
+        }
+    }
+    cout << "Bang diem khong ton tai!" << endl;
+}
+
+// Hàm in danh sách giáo viên
+void inDanhSachGiaoVien() {
+    vector<GiaoVien> dsgv = docGiaoVienTuFile("GiaoVien.txt");
+    if (dsgv.empty()) {
+        cout << "Khong co du lieu giao vien!\n";
+        return;
+    }
+    // Sắp xếp danh sách giáo viên hợp lệ (tt = true)
+    sort(dsgv.begin(), dsgv.end(), [](const GiaoVien& a, const GiaoVien& b) {
+        return a.tenGV < b.tenGV;  // Sắp xếp theo tên giáo viên
+        });
+    // Hiển thị danh sách giáo viên hợp lệ đã sắp xếp
+    cout << "\n=================================================== DANH SACH GIAO VIEN =========================================================\n" << endl;
+    cout << "| " << left << setw(10) << "Ma GV" << setw(20) << "Ten GV" << setw(15) << "Mon day" << setw(15) << "SDT" << "|" << endl;
+    cout << "--------------------------------------------------------------------------------------------------------------------------------\n";
+    bool found = false;
+    for (const auto& gv : dsgv) {
+        if (gv.tt) {  // Kiểm tra giáo viên hợp lệ (tt = true)
+            cout << "| " << left << setw(10) << gv.maGV << setw(20) << gv.tenGV << setw(15) << gv.monDay << setw(15) << gv.sdt << "|" << endl;
+            found = true;
+        }
+    }
+    cout << "================================================================================================================================\n";
+    if (!found) {
+        cout << "Khong co giao vien hop le de hien thi!" << endl;
+    }
+}
+
+// Hàm lưu bảng điểm theo lớp vào file
+void luuBDTheoLopVaoFile(const string& lop, const vector<HocSinh>& dshs, const vector<BangDiem>& dsbd) {
+    // Lọc học sinh theo lớp
+    vector<HocSinh> dshsLop;
+    for (const auto& hs : dshs) {
+        if (hs.lop == lop && hs.tt) {
+            dshsLop.push_back(hs);
+        }
+    }
+    if (dshsLop.empty()) {
+        cout << "Khong co hoc sinh trong lop " << lop << " de luu bang diem!\n";
+        return;
+    }
+    //Tạo danh sách môn học
+    map<string, bool> monHocMap;
+    vector<string> DSMonHoc;
+    for (const auto& bd : dsbd) {
+        if (bd.tt) {
+            DSMonHoc.push_back(bd.maMH);
+            monHocMap[bd.maMH] = true;
+        }
+    }
+    // Lưu báo cáo vào file
+    ofstream fileout("BaoCaoKetQuaHocTap_" + lop + ".txt");
+    fileout << "\n================================ Bao Cao Ket Qua Hoc Tap - Lop " << lop << " =================================\n" << endl;
+    fileout << "| " << left << setw(15) << "Ma hoc sinh" << setw(20) << "Ten hoc sinh";
+    for (const auto& mon : DSMonHoc) {
+        fileout << setw(10) << mon;
+    }
+    fileout << "Diem TB" << "|" << endl;
+    fileout << "---------------------------------------------------------------------------------------------------------\n";
+    // In dữ liệu điểm của từng học sinh
+    for (const auto& hs : dshsLop) {
+        if (hs.tt) {
+            fileout << "|    " << left << setw(13) << hs.maHS << setw(20) << hs.tenHS;
+            double TB = 0;
+            int count = 0;
+            for (const auto& mon : DSMonHoc) {
+                bool found = false;
+                for (const auto& bd : dsbd) {
+                    if (bd.maHS == hs.maHS && bd.maMH == mon && bd.tt) {
+                        fileout << setw(10) << bd.diemTB();
+                        TB += bd.diemTB();
+                        count++;
+                        found = true;
+                        break;
+                    }
+                }
+                if (!found) {
+                    fileout << setw(10) << "N/A";
+                }
+            }
+            fileout << left << setw(6) << round((TB / count) * 100) / 100 << "|" << endl;
+        }
+    }
+    fileout << "=========================================================================================================\n";
+    fileout.close();
+    cout << "Bao cao ket qua hoc tap da duoc luu vao file BaoCaoKetQuaHocTap_" << lop << ".txt\n";
+}
+
+// Hàm in bảng điểm theo lớp
+void inBangDiemTheoLop()
+{
+    vector<HocSinh> dshs = docHocSinhTuFile("HocSinh.txt");
+    vector<BangDiem> dsbd = docBangDiemTuFile("BangDiem.txt");
+    string lop;
+    cout << "Nhap lop can xem bang diem: "; cin >> lop;
+    // Lọc học sinh theo lớp
+    vector<HocSinh> dshsLop;
+    for (const auto& hs : dshs) {
+        if (hs.lop == lop && hs.tt) {
+            dshsLop.push_back(hs);
+        }
+    }
+    if (dshsLop.empty()) {
+        cout << "Khong co hoc sinh trong lop " << lop << " de xem bang diem!\n";
+        return;
+    }
+
+    //Tạo danh sách môn học
+    map<string, bool> monHocMap;
+    vector<string> DSMonHoc;
+	for (const auto& bd : dsbd) {
+        if (!monHocMap[bd.maMH]) //Nếu môn học chưa có trong danh sách
+        {
+            DSMonHoc.push_back(bd.maMH);
+            monHocMap[bd.maMH] = true; //Nếu thêm r đánh dấu true
+        }
+	}
+
+    //Hiển thị báo cáo
+    cout << "\n================================= BAO CAO KET QUA HOC TAP - LOP " << lop << " ====================================\n" << endl;
+    cout << "| " << left << setw(15) << "Ma hoc sinh" << setw(20) << "Ten hoc sinh";
+    for (const auto& mon : DSMonHoc) {
+        cout << setw(10) << mon;
+    }
+    cout << "Diem TB" << "|" << endl;
+    cout << "---------------------------------------------------------------------------------------------------------\n";
+    // In dữ liệu điểm của từng học sinh
+	for (const auto& hs : dshsLop) {
+		if (hs.tt) {
+            cout << "|    " << left << setw(13) << hs.maHS << setw(20) << hs.tenHS;
+			double TB = 0;
+			int count = 0;
+			for (const auto& mon : DSMonHoc) {
+				bool found = false;
+				for (const auto& bd : dsbd) {
+					if (bd.maHS == hs.maHS && bd.maMH == mon && bd.tt) {
+						cout << setw(10) << bd.diemTB();
+						TB += bd.diemTB();
+						count++;
+						found = true;
+						break;
+					}
+				}
+				if (!found) {
+					cout << setw(10) << "N/A";
+				}
 			}
-			else {
-				cout << "Huy xoa bang diem." << endl;
-			}
-			return;
+            cout << left << setw(6) << round((TB / count) * 100) / 100 << "|" << endl;
 		}
 	}
-	cout << "Bang diem khong ton tai!" << endl;
+    cout << "=========================================================================================================\n";
+
+	if (confirmAction()) { // Xác nhận lưu danh sách vào file
+		luuBDTheoLopVaoFile(lop, dshs, dsbd);
+    }
+    else {
+        cout << "Huy luu.\n";
+    }
+}
+
+// Hàm lưu xếp loại học lực học sinh vào file
+void luuXepLoaiHocLuc(const string& lop, const vector<HocSinh>& dshs, const vector<BangDiem>& dsbd)
+{
+    // Lọc học sinh theo lớp
+    vector<HocSinh> dshsLop;
+    for (const auto& hs : dshs) {
+        if (hs.lop == lop && hs.tt) {
+            dshsLop.push_back(hs);
+        }
+    }
+    if (dshsLop.empty()) {
+        cout << "Khong co hoc sinh trong lop " << lop << " de luu bang diem!\n";
+        return;
+    }
+    
+	// Lưu xếp loại học lực vào file
+	ofstream fileout("XepLoaiHocLuc_" + lop + ".txt");
+	fileout << "\n======================= Xep Loai Hoc Luc - Lop " << lop << " =======================\n" << endl;
+	fileout << "| " << left << setw(15) << "Ma hoc sinh" << setw(20) << "Ten hoc sinh" << setw(10) << "Diem TB" << setw(15) << "Hoc luc" << "|" << endl;
+	fileout << "---------------------------------------------------------------------------------\n";
+	for (const auto& hs : dshsLop) {
+		float tongDiem = 0;
+		int soMon = 0;
+		for (const auto& bd : dsbd) {
+			if (bd.maHS == hs.maHS && bd.tt) {
+				tongDiem += bd.diemTB();
+				soMon++;
+			}
+		}
+		float diemTB = tongDiem / soMon;
+		string hocLuc;
+		if (diemTB >= 8.0) {
+			hocLuc = "Gioi";
+		}
+		else if (diemTB >= 6.5) {
+			hocLuc = "Kha";
+		}
+		else if (diemTB >= 5.0) {
+			hocLuc = "Trung binh";
+		}
+		else {
+			hocLuc = "Yeu";
+		}
+		fileout << "| " << left << setw(15) << hs.maHS << setw(20) << hs.tenHS << setw(10) << round(diemTB * 100) / 100 << setw(15) << hocLuc << "|" << endl;
+	}
+	fileout << "---------------------------------------------------------------------------------\n";
+	fileout.close();
+	cout << "Xep loai hoc luc da duoc luu vao file XepLoaiHocLuc_" << lop << ".txt\n";
+}
+
+// Hàm in xếp loại học lực học sinh
+void inXepLoaiHocLuc()
+{
+    vector<HocSinh> dshs = docHocSinhTuFile("HocSinh.txt");
+    vector<BangDiem> dsbd = docBangDiemTuFile("BangDiem.txt");
+
+    if (dshs.empty() || dsbd.empty()) {
+        cout << "Khong co du lieu de hien thi!\n";
+        return;
+    }
+
+    string lop;
+    cout << "Nhap lop: ";
+    cin >> lop;
+
+    // Lọc học sinh theo lớp
+    vector<HocSinh> hsTheoLop;
+    for (const auto& hs : dshs) {
+        if (hs.lop == lop && hs.tt) {
+            hsTheoLop.push_back(hs);
+        }
+    }
+    if (hsTheoLop.empty()) {
+        cout << "Khong co hoc sinh nao trong lop " << lop << "!\n";
+        return;
+    }
+    // Hiển thị tiêu đề báo cáo
+    cout << "\n============ XEP LOAI HOC LUC - LOP " << lop << " ============\n";
+    cout << left << setw(15) << "Ma hoc sinh" << setw(20) << "Ten hoc sinh" << setw(10) << "Diem TB" << setw(15) << "Hoc luc" << endl;
+    cout << "-------------------------------------------------------------\n";
+    // Xếp loại học lực
+    for (const auto& hs : hsTheoLop) {
+        float tongDiem = 0;
+        int soMon = 0;
+        for (const auto& bd : dsbd) {
+            if (bd.maHS == hs.maHS && bd.tt) {
+                tongDiem += bd.diemTB();
+                soMon++;
+            }
+        }
+        float diemTB = tongDiem / soMon;
+        string hocLuc;
+        if (diemTB >= 8.0) {
+            hocLuc = "Gioi";
+        }
+        else if (diemTB >= 6.5) {
+            hocLuc = "Kha";
+        }
+        else if (diemTB >= 5.0) {
+            hocLuc = "Trung binh";
+        }
+        else {
+            hocLuc = "Yeu";
+        }
+        cout << left << setw(15) << hs.maHS << setw(20) << hs.tenHS << setw(10) << round(diemTB * 100) / 100 << setw(15) << hocLuc << endl;
+    }
+    cout << "-------------------------------------------------------------\n";
+    if (confirmAction()) { 
+        luuXepLoaiHocLuc(lop, dshs, dsbd);
+    }
+    else {
+        cout << "Huy luu.\n";
+    }
+}
+
+// Hàm tìm học sinh có điểm trung bình cao nhất
+void timHocSinhMaxDiemTB() {
+    vector<HocSinh> dshs = docHocSinhTuFile("HocSinh.txt");
+    vector<BangDiem> dsbd = docBangDiemTuFile("BangDiem.txt");
+
+    if (dshs.empty() || dsbd.empty()) {
+        cout << "Khong co du lieu de hien thi!\n";
+        return;
+    }
+
+    string lop;
+    cout << "Nhap lop can xem diem cao nhat (hoac 'all' de xem tat ca): ";
+    cin >> lop;
+
+    float maxDiemTB = 0;
+    vector<HocSinh> hsMaxDiemTB;
+
+    // Tính điểm trung bình cho tất cả các môn của từng học sinh, chỉ xét học sinh có tt = true
+    for (const auto& hs : dshs) {
+        if (!hs.tt) continue;  // Chỉ xét học sinh có tt = true
+
+        float tongDiem = 0;
+        int soMon = 0;
+
+        for (const auto& bd : dsbd) {
+            if (bd.maHS == hs.maHS) {
+                tongDiem += bd.diemTB();
+                soMon++;
+            }
+        }
+
+        float diemTB = (soMon > 0) ? (tongDiem / soMon) : -1;
+        diemTB = round(diemTB * 100) / 100;  // Làm tròn điểm trung bình
+
+        // Nếu người dùng nhập 'all', duyệt tất cả học sinh, nếu nhập lớp, chỉ xét lớp đó
+        if (lop == "all" || hs.lop == lop) {
+            // Tìm học sinh có điểm trung bình cao nhất
+            if (diemTB > maxDiemTB) {
+                maxDiemTB = diemTB;
+                hsMaxDiemTB.clear();
+                hsMaxDiemTB.push_back(hs);
+            }
+            else if (diemTB == maxDiemTB) {
+                hsMaxDiemTB.push_back(hs);
+            }
+        }
+    }
+
+    // Hiển thị danh sách học sinh có điểm trung bình cao nhất
+    cout << "\nHoc sinh co diem trung binh cao nhat:\n";
+    cout << "| " << left << setw(10) << "Ma HS" << setw(20) << "Ten HS" << setw(10) << "Lop" << setw(8) << "TB" << "|\n";
+    cout << "--------------------------------------------------------------\n";
+
+    if (!hsMaxDiemTB.empty()) {
+        for (const auto& hs : hsMaxDiemTB) {
+            cout << "| " << left << setw(10) << hs.maHS << setw(20) << hs.tenHS << setw(10) << hs.lop;
+            cout << setw(8) << maxDiemTB << "|\n";
+        }
+    }
+    else {
+        cout << "Khong tim thay hoc sinh co diem trung binh cao nhat.\n";
+    }
+
+    cout << "--------------------------------------------------------------\n";
 }
 
 // Hàm in danh sách bảng điểm theo học sinh
-void inBangDiemHocSinh(const string& maHS, const vector<HocSinh>& dshs, const vector<BangDiem>& dsbd) {
+void inBangDiemHocSinh() {
+    vector<HocSinh> dshs = docHocSinhTuFile("HocSinh.txt");
+    vector<BangDiem> dsbd = docBangDiemTuFile("BangDiem.txt");
     HocSinh hs;
     bool found = false;
+    string maHS;
+    cout << "Nhap ma hoc sinh can xem bang diem: "; cin >> maHS;
     // Tìm học sinh trong danh sách
     for (const auto& h : dshs) {
-        if (h.maHS == maHS && h.tt) {  // Kiểm tra học sinh hợp lệ
+        if (h.maHS == maHS && h.tt) {
             hs = h;
             found = true;
             break;
@@ -1052,33 +1355,37 @@ void luuDanhSachDiemTheoMonVaoFile(const string& maMH, const vector<HocSinh>& ds
 }
 
 // Hàm in danh sách điểm theo môn học và lớp học
-void inDanhSachDiemTheoMon(vector<HocSinh>& dshs, vector<BangDiem>& dsbd) {
+void inDanhSachDiemTheoMon() {
+    vector<HocSinh> dshs = docHocSinhTuFile("HocSinh.txt");
+    vector<BangDiem> dsbd = docBangDiemTuFile("BangDiem.txt");
     if (dshs.empty() || dsbd.empty()) {
         cout << "Khong co du lieu!\n";
         return;
     }
 
-    string maMH;
+    string ma;
     cout << "Nhap ma mon hoc: ";
-    cin >> maMH;
+    cin >> ma;
 
     // Lọc điểm theo môn học (chỉ lấy bảng điểm hợp lệ)
     vector<BangDiem> diemTheoMon;
+    vector<HocSinh> dshsLop;
+
     for (const auto& bd : dsbd) {
-        if (bd.tt && bd.maMH == maMH) {  // Kiểm tra bảng điểm hợp lệ mà không cần trim
+        if (bd.tt && bd.maMH == ma) {  // Kiểm tra bảng điểm hợp lệ mà không cần trim
             diemTheoMon.push_back(bd);
         }
     }
 
     if (diemTheoMon.empty()) {
-        cout << "Khong co du lieu diem cho mon hoc " << maMH << "!\n";
+        cout << "Khong co du lieu diem cho mon hoc " << ma << "!\n";
         return;
     }
 
     // Hiển thị danh sách điểm theo môn học
-    cout << "\n=================== DANH SACH DIEM THEO MON " << maMH << " ====================\n" << endl;
+    cout << "\n=================== DANH SACH DIEM THEO MON " << ma << " ====================\n" << endl;
     cout << "=====================================================================\n";
-    cout << "| " << left << setw(15) << "Ma hoc sinh" << setw(10) << "Ma mon"
+    cout << "| " << left << setw(15) << "Ma hoc sinh" << setw(50) << "Ten hoc sinh"
         << setw(8) << "Mieng" << setw(8) << "15 phut" << setw(8) << "KT"
         << setw(8) << "Thi" << setw(10) << "Diem TB" << "|\n";
     cout << "---------------------------------------------------------------------\n";
@@ -1089,7 +1396,7 @@ void inDanhSachDiemTheoMon(vector<HocSinh>& dshs, vector<BangDiem>& dsbd) {
         for (const auto& hs : dshs) {
             if (hs.maHS == bd.maHS && hs.tt) {  // Chỉ lấy học sinh hợp lệ
                 cout << "| " << left << setw(15) << bd.maHS
-                    << setw(10) << bd.maMH
+                    << setw(50) << hs.tenHS
                     << setw(8) << bd.DM
                     << setw(8) << bd.DCC
                     << setw(8) << bd.DKT
@@ -1108,7 +1415,7 @@ void inDanhSachDiemTheoMon(vector<HocSinh>& dshs, vector<BangDiem>& dsbd) {
 
     if (tolower(save) == 'y') {
         // Gọi hàm lưu danh sách điểm theo môn học vào file
-        luuDanhSachDiemTheoMonVaoFile(maMH, dshs, diemTheoMon);
+        luuDanhSachDiemTheoMonVaoFile(ma, dshs, diemTheoMon);
     }
 }
 
@@ -1124,6 +1431,204 @@ void menu() {
     cout << "Chon chuc nang: ";
 }
 
+// Quan lý học sinh
+void quanLyHocSinh()
+{
+    int chonCN;
+    while (true) {
+        displaySubMenu("Hoc Sinh");
+        cin >> chonCN;
+        switch (chonCN)
+        {
+        case 1: //Thêm học sinh
+        {
+            themHocSinh();
+            pauseAndClear();
+            break;
+        };
+
+        case 2: //Sửa thông tin học sinh
+        {
+            suaHocSinh();
+            pauseAndClear();
+            break;
+        };
+
+        case 3: //Xóa học sinh
+        {
+            xoaHocSinh();
+            pauseAndClear();
+            break;
+        };
+
+        case 4: //Xem danh sách học sinh + tìm kiếm
+        {
+            timKiemHS();
+            pauseAndClear();
+            break;
+        };
+
+        case 0: //Quay lại
+        {
+            return;
+        };
+        default:
+        {
+            cout << "Chon chuc nang khong hop le. Vui long chon lai.\n";
+            pauseAndClear();
+            break;
+        }
+        }
+    }
+}
+
+// Quản lý giáo viên
+void quanLyGiaoVien()
+{
+    int chonCN;
+    while (true) {
+        displaySubMenu("Giao Vien");
+        cin >> chonCN;
+        switch (chonCN)
+        {
+        case 1: //Thêm giáo viên
+        {
+            themGiaoVien();
+            pauseAndClear();
+            break;
+        };
+        case 2: //Sửa thông tin giáo viên
+        {
+            suaGiaoVien();
+            pauseAndClear();
+            break;
+        };
+        case 3: //Xóa giáo viên
+        {
+            xoaGiaoVien();
+            pauseAndClear();
+            break;
+        };
+        case 4: //Xem danh sách giáo viên
+        {
+            inDanhSachGiaoVien();
+            pauseAndClear();
+            break;
+        };
+        case 0: //Quay lại
+        {
+            return;
+        };
+        default:
+        {
+            cout << "Chon chuc nang khong hop le. Vui long chon lai.\n";
+            pauseAndClear();
+            break;
+        }
+        }
+    }
+}
+
+// Quản lý bảng điểm
+void quanLyBangDiem()
+{
+    int chonCN;
+    while (true) {
+        displaySubMenu("Bang Diem");
+        cin >> chonCN;
+        switch (chonCN)
+        {
+        case 1: //Thêm bảng điểm
+        {
+            themBangDiem();
+            pauseAndClear();
+            break;
+        };
+        case 2: //Sửa bảng điểm
+        {
+            suaBangDiem();
+            pauseAndClear();
+            break;
+        };
+        case 3: //Xóa bảng điểm
+        {
+            xoaBangDiem();
+            pauseAndClear();
+            break;
+        };
+        case 4: // Xem bảng điểm
+        {
+            inDanhSachDiemTheoMon();
+            pauseAndClear();
+            break;
+        };
+
+        case 0: //Quay lại
+        {
+            return;
+        };
+        default:
+        {
+            cout << "Chon chuc nang khong hop le. Vui long chon lai.\n";
+            pauseAndClear();
+            break;
+        }
+        }
+    }
+}
+
+// Báo cáo thống kê
+void quanLyBaoCao()
+{
+    int chonCN;
+    while (true) {
+        displayMenuBaoCao();
+        cin >> chonCN;
+        switch (chonCN)
+        {
+        case 1: // in danh sách học sinh theo lớp 
+        {
+            inDanhSachHocSinh();
+            pauseAndClear();
+            break;
+        };
+        case 2: // in danh sách giáo viên
+        {
+            inDanhSachGiaoVien();
+            pauseAndClear();
+            break;
+        };
+        case 3: // Báo cáo kết quả học tập theo lớp
+        {
+			inBangDiemTheoLop();
+            pauseAndClear();
+            break;
+        };
+        case 4: // Báo cáo xếp loại học lực học sinh
+        {
+			inXepLoaiHocLuc();
+            pauseAndClear();
+            break;
+        };
+        case 5: // Hiển thị học sinh có điểm trung bình cao nhất
+        {
+			timHocSinhMaxDiemTB();
+            pauseAndClear();
+            break;
+        };
+        case 0: //Quay lại
+        {
+            return;
+        };
+        default:
+        {
+            cout << "Chon chuc nang khong hop le. Vui long chon lai.\n";
+            pauseAndClear();
+            break;
+        }
+        }
+    }
+}
 
 int main()
 {
@@ -1142,56 +1647,7 @@ int main()
         case 1:
         {
             system("cls");
-            int chonCN;
-            while (true) {
-                displaySubMenu("Hoc Sinh");
-                cin >> chonCN;
-                switch (chonCN)
-                {
-                case 1: //Thêm học sinh
-                {
-                    themHocSinh();
-                    pauseAndClear();
-                    break;
-                };
-
-                case 2: //Sửa thông tin học sinh
-                {
-                    suaHocSinh();
-                    pauseAndClear();
-                    break;
-                };
-
-                case 3: //Xóa học sinh
-                {
-                    xoaHocSinh();
-                    pauseAndClear();
-                    break;
-                };
-
-                case 4: //Xem danh sách học sinh + tìm kiếm
-                {
-                    timKiemHS();
-                    pauseAndClear();
-                    break;
-                };
-
-                case 0: //Quay lại
-                {
-                    pauseAndClear();
-                    break;
-                };
-                default:
-                {
-                    cout << "Chon chuc nang khong hop le. Vui long chon lai.\n";
-                    //pauseAndClear();
-                    // << "Chon chuc nang: ";
-                    cin.ignore();
-                    cin.get();
-                    break;
-                }
-                }
-            }
+            quanLyHocSinh();
             pauseAndClear();
             break;
         };
@@ -1200,151 +1656,28 @@ int main()
         case 2:
         {
             system("cls");
-            int chonCN;
-            while (true) {
-                displaySubMenu("Giao Vien");
-                cin >> chonCN;
-                switch (chonCN)
-                {
-                case 1: //Thêm giáo viên
-                {
-                    themGiaoVien();
-                    pauseAndClear();
-                    break;
-                };
-
-                case 2: //Sửa thông tin giáo viên
-                {
-                    suaGiaoVien();
-                    pauseAndClear();
-                    break;
-                };
-
-                case 3: //Xóa giáo viên
-                {
-                    xoaGiaoVien();
-                    pauseAndClear();
-                    break;
-                };
-
-                case 4: //Xem danh sách giáo viên
-                {
-                    inDanhSachGiaoVien();
-                    pauseAndClear();
-                    break;
-                };
-
-                case 0: //Quay lại
-                {
-                    pauseAndClear();
-                    break;
-                };
-
-                default:
-                {
-                    cout << "Chon chuc nang khong hop le. Vui long chon lai.\n";
-                    pauseAndClear();
-                    //cout << "Chon chuc nang: ";
-                    break;
-                }
-                }
-            }
-
+            quanLyGiaoVien();
+            pauseAndClear();
+            break;
         };
 
         //Quản lý điểm
         case 3:
         {
             system("cls");
-            int chonCN;
-            while (true) {
-                displaySubMenu("BangDiem");
-                cin >> chonCN;
-                switch (chonCN)
-                {
-                case 1: //Thêm bảng điểm
-                {
-                    themBangDiem();
-                    pauseAndClear();
-                    break;
-                };
-
-                case 2: //Sửa bảng điểm
-                {
-                    suaBangDiem();
-                    pauseAndClear();
-                    break;
-                };
-
-                case 3: //Xóa bảng điểm
-                {
-                    xoaBangDiem(dsbd);
-                    pauseAndClear();
-                    break;
-                };
-
-                case 4: //In bảng điểm
-                {
-
-                };
-
-                case 0:// Quay lại
-                {
-                    pauseAndClear();
-                    break;
-                };
-                }
-
-                pauseAndClear();
-                break;
-            };
-		};
-        case 4: //Báo cáo thống kê
-        {
-
+            quanLyBangDiem();
+            pauseAndClear();
+            break;
         };
 
-            //case 10: // Hiển thị học sinh có điểm trung bình cao nhất
-            //       {
-            //           vector<HocSinh> dshs = docHocSinhTuFile("HocSinh.txt");
-            //           vector<BangDiem> dsbd = docBangDiemTuFile("BangDiem.txt");
-
-            //           if (dshs.empty() || dsbd.empty()) {
-            //               cout << "Khong co du lieu de hien thi!\n";
-            //               break;
-            //           }
-
-            //           float maxDiemTB = 0;
-            //           vector<HocSinh> hsMaxDiemTB;
-
-            //           // Tính điểm trung bình cho tất cả các môn của từng học sinh
-            //           for (const auto & hs : dshs) {
-            //               if (!hs.tt) continue;
-            //               float diemTB = tinhDiemTB(hs.maHS, dsbd); // Gọi hàm tính điểm trung bình
-
-            //               // Tìm học sinh có điểm trung bình cao nhất
-            //               if (diemTB > maxDiemTB) {
-            //                   maxDiemTB = diemTB;
-            //                   hsMaxDiemTB.clear();
-            //                   hsMaxDiemTB.push_back(hs);
-            //               }
-            //               else if (diemTB == maxDiemTB) {
-            //                   hsMaxDiemTB.push_back(hs);
-            //               }
-            //           }
-
-            //           // Hiển thị danh sách học sinh có điểm trung bình cao nhất
-            //           cout << "\nHoc sinh co diem trung binh cao nhat:\n";
-            //           cout << "| " << left << setw(10) << "Ma HS" << setw(20) << "Ten HS" << setw(10) << "Lop" << setw(8) << "TB" << "|\n";
-
-            //           for (const auto& hs : hsMaxDiemTB) {
-            //               cout << "| " << left << setw(10) << hs.maHS << setw(20) << hs.tenHS << setw(10) << hs.lop;
-            //               cout << setw(8) << maxDiemTB << "|\n";
-            //           }
-
-            //           pauseAndClear();
-            //           break;
-            //       };
+        //Báo cáo thống kê
+        case 4:
+        {
+			system("cls");
+			quanLyBaoCao();
+			pauseAndClear();
+			break;
+        };
 
         case 0: {
             cout << "Ban co thuc su muon thoat chuong trinh khong? (Y/N): ";
@@ -1361,11 +1694,6 @@ int main()
             cin.get();
         }
         }
-
-
-
-
-
     } while (chon != 0);
 
     return 0;

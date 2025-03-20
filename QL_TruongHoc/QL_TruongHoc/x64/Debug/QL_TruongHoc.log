@@ -1,6 +1,15 @@
+<<<<<<< HEAD
+﻿  mainQLTH.cpp
+F:\LTNC\ThucHanh\BTN_QLTH\QL_TruongHoc\QL_TruongHoc\mainQLTH.cpp(246,25): warning C4566: character represented by universal-character-name '\u1ED7' cannot be represented in the current code page (1252)
+F:\LTNC\ThucHanh\BTN_QLTH\QL_TruongHoc\QL_TruongHoc\mainQLTH.cpp(246,25): warning C4566: character represented by universal-character-name '\u1ECD' cannot be represented in the current code page (1252)
+F:\LTNC\ThucHanh\BTN_QLTH\QL_TruongHoc\QL_TruongHoc\mainQLTH.cpp(246,25): warning C4566: character represented by universal-character-name '\u1EE3' cannot be represented in the current code page (1252)
+F:\LTNC\ThucHanh\BTN_QLTH\QL_TruongHoc\QL_TruongHoc\mainQLTH.cpp(246,25): warning C4566: character represented by universal-character-name '\u1EC7' cannot be represented in the current code page (1252)
+  QL_TruongHoc.vcxproj -> F:\LTNC\ThucHanh\BTN_QLTH\QL_TruongHoc\x64\Debug\QL_TruongHoc.exe
+=======
 ﻿  mainQLTH.cpp
 F:\DaiHoc\Ky_6\LTNC\QL_TruongHoc\QL_TruongHoc\mainQLTH.cpp(248,25): warning C4566: character represented by universal-character-name '\u1ED7' cannot be represented in the current code page (1252)
 F:\DaiHoc\Ky_6\LTNC\QL_TruongHoc\QL_TruongHoc\mainQLTH.cpp(248,25): warning C4566: character represented by universal-character-name '\u1ECD' cannot be represented in the current code page (1252)
 F:\DaiHoc\Ky_6\LTNC\QL_TruongHoc\QL_TruongHoc\mainQLTH.cpp(248,25): warning C4566: character represented by universal-character-name '\u1EE3' cannot be represented in the current code page (1252)
 F:\DaiHoc\Ky_6\LTNC\QL_TruongHoc\QL_TruongHoc\mainQLTH.cpp(248,25): warning C4566: character represented by universal-character-name '\u1EC7' cannot be represented in the current code page (1252)
   QL_TruongHoc.vcxproj -> F:\DaiHoc\Ky_6\LTNC\QL_TruongHoc\x64\Debug\QL_TruongHoc.exe
+>>>>>>> master
