@@ -1,0 +1,20 @@
+HS001,Nguyen Bao An,12A1,"15 Pho Thien Quang, Quan Hai Ba Trung",0978654321,0987126782 ,1
+HS002,Ha Bao Anh,12A1,"146 Duong Lac Trung, Quan Hai Ba Trung",0901234789,0913451290 ,1
+HS003,Phan Van Binh,12A1,"325 Duong Tran Dai Nghia, Quan Hai Ba Trung",0948761234,0938765432 ,1
+HS004,Pham Minh Chau,12A1,"191 Duong Ba Trieu, Quan Hai Ba Trung",0983456712,0971239876 ,1
+HS005,Phan Van Duc,12A1,"42 Pho Bui Ngoc Duong, Quan Hai Ba Trung",0916782345,0945678901 ,1
+HS006,Dao Huu Duong,12A1,"22 Ngo 31 Duong Yen Bai, Quan Hai Ba Trung",0935432198,0962345612 ,1
+HS007,Dang Le Duy,12A1,"13 Pho Lo Duc, Quan Hai Ba Trung",0954321876,0927891234 ,1
+HS008,Nguyen Huong Giang,12A1,"431 Duong Bach Mai, Quan Hai Ba Trung",0967893456,0956782345 ,1
+HS009,Dang Giang Huong,12A1,"144 Pho Lac Trung, Quan Hai Ba Trung",0921345678,0993214567 ,1
+HS010,Tran Quoc Huy,12A1,"5 Pho Dong Mac, Quan Hai Ba Trung",0998765430,0908765432 ,1
+HS011,Bui Kien,12A1,"164 Duong Hong Mai, Quan Hai Ba Trung",0905678901,0985432190 ,1
+HS012,Tran Thuy Linh,12A1,"100 Pho Tue Tinh, Quan Hai Ba Trung",0981234567,0919876543 ,1
+HS013,Mai My Linh,12A1,"213 Duong Bach Mai, Quan Hai Ba Trung",0914321098,0932147856 ,1
+HS014,Le Thi Men,12A1,"30 Pho Tran Binh Trong, Quan Hai Ba Trung",0939876123,0974563210 ,1
+HS015,Nguyen Thao Nhi,12A1,"58 Duong Tran Nhan Tong, Quan Hai Ba Trung",0943218765,0941237890 ,1
+HS016,Nguyen Nhu Quynh,12A1,"1 Pho Quynh Mai, Quan Hai Ba Trung",0965432109,0967890123 ,1
+HS017,Dang Phuong Hue,12B,"Ha Tinh",0987654,0987654,1
+HS018,Ngo Thuy Dung,12B,"Hai Duong",0987654,098765432,1
+HS019,Vu Thi Xuan Huong,12B,"Bac Giang",98765432,9128736,1
+HS020,Nguyen Duc Truong,12C,"Hai Duong",098765432,0987654323,1

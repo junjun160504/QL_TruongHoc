@@ -134,6 +134,35 @@ vector<BangDiem> docBangDiemTuFile(const string& tenFile) {
     return dsbd;
 }
 
+// Ghi file Giáo viên
+void ghiFileGV(const string& tenFile, const vector<GiaoVien>& dsgv) {
+    ofstream fileout(tenFile);
+    for (const auto& gv : dsgv) {
+        fileout << gv.maGV << "|" << gv.tenGV << "|" << gv.monDay << "|" << gv.sdt << endl;
+    }
+    fileout.close();
+}
+
+// Ghi file Học sinh
+void ghiFileHS(const string& tenFile, const vector<HocSinh>& dshs) {
+    ofstream fileout(tenFile);
+    for (const auto& hs : dshs) {
+        fileout << hs.maHS << "|" << hs.tenHS << "|" << hs.lop << "|"
+            << hs.diaChi << "|" << hs.sdt << "|" << hs.sdtPH << endl;
+    }
+    fileout.close();
+}
+
+// Ghi file Bảng điểm
+void ghiFileBD(const string& tenFile, const vector<BangDiem>& dsbd) {
+    ofstream fileout(tenFile);
+    for (const auto& bd : dsbd) {
+        fileout << bd.maHS << "|" << bd.maMH << "|" << bd.DM << "|" << bd.DCC << "|" << bd.DKT << "|" << bd.DT << endl;
+    }
+    fileout.close();
+}
+
+// Hàm xác nhận hành động
 bool confirmAction() {
     string confirm;
     cout << "Ban co chac chan voi thao tac nay? (y/n): ";

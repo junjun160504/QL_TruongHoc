@@ -1,0 +1,89 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "F:\\LTNC\\ThucHanh\\BTN_QLTH\\QL_TruongHoc\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{40A56BEA-9EE7-4216-BF4E-1F7A08FBBFA4}|QL_TruongHoc\\QL_TruongHoc.vcxproj|F:\\LTNC\\ThucHanh\\BTN_QLTH\\QL_TruongHoc\\QL_TruongHoc\\mainQLTH.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{40A56BEA-9EE7-4216-BF4E-1F7A08FBBFA4}|QL_TruongHoc\\QL_TruongHoc.vcxproj|solutionrelative:QL_TruongHoc\\mainQLTH.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{40A56BEA-9EE7-4216-BF4E-1F7A08FBBFA4}|QL_TruongHoc\\QL_TruongHoc.vcxproj|F:\\LTNC\\ThucHanh\\BTN_QLTH\\QL_TruongHoc\\QL_TruongHoc\\BangDiem.txt||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{40A56BEA-9EE7-4216-BF4E-1F7A08FBBFA4}|QL_TruongHoc\\QL_TruongHoc.vcxproj|solutionrelative:QL_TruongHoc\\BangDiem.txt||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{40A56BEA-9EE7-4216-BF4E-1F7A08FBBFA4}|QL_TruongHoc\\QL_TruongHoc.vcxproj|F:\\LTNC\\ThucHanh\\BTN_QLTH\\QL_TruongHoc\\QL_TruongHoc\\HocSinh.txt||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{40A56BEA-9EE7-4216-BF4E-1F7A08FBBFA4}|QL_TruongHoc\\QL_TruongHoc.vcxproj|solutionrelative:QL_TruongHoc\\HocSinh.txt||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{40A56BEA-9EE7-4216-BF4E-1F7A08FBBFA4}|QL_TruongHoc\\QL_TruongHoc.vcxproj|F:\\LTNC\\ThucHanh\\BTN_QLTH\\QL_TruongHoc\\QL_TruongHoc\\GiaoVien.txt||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{40A56BEA-9EE7-4216-BF4E-1F7A08FBBFA4}|QL_TruongHoc\\QL_TruongHoc.vcxproj|solutionrelative:QL_TruongHoc\\GiaoVien.txt||{8B382828-6202-11D1-8870-0000F87579D2}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "mainQLTH.cpp",
+              "DocumentMoniker": "F:\\LTNC\\ThucHanh\\BTN_QLTH\\QL_TruongHoc\\QL_TruongHoc\\mainQLTH.cpp",
+              "RelativeDocumentMoniker": "QL_TruongHoc\\mainQLTH.cpp",
+              "ToolTip": "F:\\LTNC\\ThucHanh\\BTN_QLTH\\QL_TruongHoc\\QL_TruongHoc\\mainQLTH.cpp",
+              "RelativeToolTip": "QL_TruongHoc\\mainQLTH.cpp",
+              "ViewState": "AgIAAIUGAAAAAAAAAAAcwJAGAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2025-03-18T05:12:34.021Z",
+              "IsPinned": true,
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "HocSinh.txt",
+              "DocumentMoniker": "F:\\LTNC\\ThucHanh\\BTN_QLTH\\QL_TruongHoc\\QL_TruongHoc\\HocSinh.txt",
+              "RelativeDocumentMoniker": "QL_TruongHoc\\HocSinh.txt",
+              "ToolTip": "F:\\LTNC\\ThucHanh\\BTN_QLTH\\QL_TruongHoc\\QL_TruongHoc\\HocSinh.txt",
+              "RelativeToolTip": "QL_TruongHoc\\HocSinh.txt",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAAAUAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003109|",
+              "WhenOpened": "2025-03-18T05:14:11.797Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "BangDiem.txt",
+              "DocumentMoniker": "F:\\LTNC\\ThucHanh\\BTN_QLTH\\QL_TruongHoc\\QL_TruongHoc\\BangDiem.txt",
+              "RelativeDocumentMoniker": "QL_TruongHoc\\BangDiem.txt",
+              "ToolTip": "F:\\LTNC\\ThucHanh\\BTN_QLTH\\QL_TruongHoc\\QL_TruongHoc\\BangDiem.txt",
+              "RelativeToolTip": "QL_TruongHoc\\BangDiem.txt",
+              "ViewState": "AgIAAFoAAAAAAAAAAAAAwGEAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003109|",
+              "WhenOpened": "2025-03-18T05:14:37.24Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "GiaoVien.txt",
+              "DocumentMoniker": "F:\\LTNC\\ThucHanh\\BTN_QLTH\\QL_TruongHoc\\QL_TruongHoc\\GiaoVien.txt",
+              "RelativeDocumentMoniker": "QL_TruongHoc\\GiaoVien.txt",
+              "ToolTip": "F:\\LTNC\\ThucHanh\\BTN_QLTH\\QL_TruongHoc\\QL_TruongHoc\\GiaoVien.txt",
+              "RelativeToolTip": "QL_TruongHoc\\GiaoVien.txt",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAXAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003109|",
+              "WhenOpened": "2025-03-18T05:13:47.285Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
