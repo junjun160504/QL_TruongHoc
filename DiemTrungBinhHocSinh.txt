@@ -1,20 +1,21 @@
 
-================================= BAO CAO DIEM TRUNG BINH HOC SINH - LOP 12A1 =================================
-Ma hoc sinh    Ten hoc sinh        Diem TB        
-HS0012         Nguyen Bao An       9.12           
-HS0025         Ha Bao Anh          8.37           
-HS0039         Phan Van Binh       8.85           
-HS0047         Pham Minh Chau      8.71           
-HS0061         Phan Van Duc        8.87           
-HS0078         Dao Huu Duong       8.93           
-HS0093         Dang Le Duy         8.9            
-HS0105         Nguyen Huong Giang  8.43           
-HS0124         Dang Giang Huong    7.79           
-HS0150         Tran Quoc Huy       8.05           
-HS0172         Bui Kien            6.67           
-HS0198         Tran Thuy Linh      5.36           
-HS0213         Mai My Linh         5.88           
-HS0236         Le Thi Men          5.52           
-HS0259         Nguyen Thao Nhi     6.31           
-HS0281         Nguyen Nhu Quynh    6.3            
-===================================================================================================
+==== BAO CAO DIEM TRUNG BINH HOC SINH - LOP 12A1 ====
+| Ma hoc sinh    Ten hoc sinh        Diem TB        |
+=====================================================
+| HS0012         Nguyen Bao An       9.12           |
+| HS0025         Ha Bao Anh          8.37           |
+| HS0039         Phan Van Binh       8.85           |
+| HS0047         Pham Minh Chau      8.71           |
+| HS0061         Phan Van Duc        8.87           |
+| HS0078         Dao Huu Duong       8.93           |
+| HS0093         Dang Le Duy         8.9            |
+| HS0105         Nguyen Huong Giang  8.43           |
+| HS0124         Dang Giang Huong    7.79           |
+| HS0150         Tran Quoc Huy       8.05           |
+| HS0172         Bui Kien            6.67           |
+| HS0198         Tran Thuy Linh      5.36           |
+| HS0213         Mai My Linh         5.88           |
+| HS0236         Le Thi Men          5.52           |
+| HS0259         Nguyen Thao Nhi     6.31           |
+| HS0281         Nguyen Nhu Quynh    6.3            |
+=====================================================
